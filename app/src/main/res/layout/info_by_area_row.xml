@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constractLayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/StatisticsCardView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="@color/pastel_green"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constractCardLayout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/image"
+            app:layout_constraintTop_toTopOf="@+id/image">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+
+                android:layout_marginTop="@dimen/page_margin"
+                android:layout_marginLeft="@dimen/page_margin"
+                android:layout_marginRight="@dimen/page_margin"
+
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have 3 Crew Memberss chillin'."
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/page_margin"
+                android:layout_marginRight="@dimen/page_margin"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:layout_editor_absoluteY="93dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/page_margin"
+                android:layout_marginRight="@dimen/page_margin"
+                android:text="@string/home"
+                android:backgroundTint="@null"
+                android:background="@drawable/button_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

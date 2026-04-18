@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constractLayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/StatisticsCardView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_height"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginBottom="@dimen/card_margin"
+        android:layout_marginStart="@dimen/card_margin"
+        android:layout_marginEnd="@dimen/card_margin"
+        app:cardBackgroundColor="@color/card_color"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constractCardLayout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/image"
+            app:layout_constraintTop_toTopOf="@+id/image">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="150dp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/def"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="DEF:"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/atk"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="ATK:"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/def"/>
+
+                <TextView
+                    android:id="@+id/hp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="HP:"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/atk"/>
+                <TextView
+                    android:id="@+id/experience"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="XP:"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hp"/>
+
+                <TextView
+                    android:id="@+id/atk2"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="ATK:"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/def2"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="DEF:"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/atk"/>
+
+                <TextView
+                    android:id="@+id/hp2"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="HP:"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/def"/>
+                <TextView
+                    android:id="@+id/xp2"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="XP:"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/crewMemberImage"
+                android:layout_width="120dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="4dp"
+
+                app:layout_constraintStart_toStartOf="@id/name"
+                app:layout_constraintTop_toBottomOf="@id/name"
+
+                app:srcCompat="@drawable/boy" />
+
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="2"
+                android:scaleY="2"
+                android:layout_marginEnd="25dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:paddingStart="15dp"
+
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="25sp"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/colorName"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/crewMemberImage" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

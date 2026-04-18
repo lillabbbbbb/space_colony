@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="stat_element_header_width">100dp</dimen>
+    <dimen name="stat_header_left_margin_from_icon">20dp</dimen>
+
+
+
+</resources>

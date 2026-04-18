@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    tools:context=".activities.MissionActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/dark_pastel_green"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/bbutton_layout_height"
+        android:layout_marginStart="@dimen/bbutton_margin_start"
+        android:layout_marginBottom="@dimen/bbutton_margin_bottom"
+        android:layout_marginTop="@dimen/bbutton_margin_top"
+        android:text="@string/bbutton_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    />
+
+    <TextView
+        android:id="@+id/tv_toolbar_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="@id/toolbar"
+        app:layout_constraintRight_toRightOf="@id/toolbar"
+        android:textColor="@color/toolbar_header_color"
+        android:textSize="@dimen/toolbar_header_size"
+        android:textStyle="bold"
+        android:text="@string/missionControl" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recycler_view_height"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+
+        android:paddingTop="10dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutLeft"
+            android:layout_width="@dimen/battle_arena_card_width"
+            android:layout_height="@dimen/battle_arena_card_height"
+            android:layout_marginEnd="@dimen/page_margin"
+            android:layout_marginTop="@dimen/page_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="Choose an option"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdownMenu2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:inputType="none"
+                    android:dropDownHeight="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/engineer"
+                />
+
+            <TextView
+                android:id="@+id/atk3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ATK:"
+                app:layout_constraintEnd_toStartOf="@id/atk4"
+                app:layout_constraintBottom_toTopOf="@id/hp3"/>
+
+            <TextView
+                android:id="@+id/hp3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="HP:"
+                app:layout_constraintEnd_toStartOf="@id/hp4"
+                app:layout_constraintBottom_toTopOf="@id/def3"/>
+
+            <TextView
+                android:id="@+id/def3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="DEF:"
+                app:layout_constraintEnd_toStartOf="@id/def4"
+                app:layout_constraintBottom_toTopOf="@id/experience3"/>
+            <TextView
+                android:id="@+id/experience3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="XP:"
+                app:layout_constraintEnd_toStartOf="@id/experience4"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/atk4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ATK:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/hp4"/>
+
+            <TextView
+                android:id="@+id/hp4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/def4"/>
+
+            <TextView
+                android:id="@+id/def4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/experience4"/>
+            <TextView
+                android:id="@+id/experience4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/sword"
+            android:layout_width="@dimen/sword_width_height"
+            android:layout_height="@dimen/sword_width_height"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutLeft"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutLeft"
+            app:srcCompat="@drawable/lightsabers"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutBattleDescription"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/constraintLayoutLeft"
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin">
+
+            <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/my_textbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="The mission description will appear here."
+                    android:gravity="top|start"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:minLines="5"
+                    android:textSize="15sp"
+                    android:ellipsize="none" />
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutRight"
+            android:layout_width="@dimen/battle_arena_card_width"
+            android:layout_height="@dimen/battle_arena_card_height"
+            android:layout_marginStart="@dimen/page_margin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutLeft">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="Choose an option"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdownMenu1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:inputType="none"
+                    android:dropDownHeight="wrap_content"
+                    android:completionThreshold="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/scientist"
+                />
+
+
+            <TextView
+                android:id="@+id/atk"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ATK:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/hp"/>
+
+            <TextView
+                android:id="@+id/hp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="HP:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/def"/>
+
+            <TextView
+                android:id="@+id/def"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="DEF:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/experience"/>
+            <TextView
+                android:id="@+id/experience"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="XP:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/atk2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ATK:"
+                app:layout_constraintStart_toEndOf="@id/atk"
+                app:layout_constraintBottom_toTopOf="@id/hp2"/>
+
+            <TextView
+                android:id="@+id/hp2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="HP:"
+                app:layout_constraintStart_toEndOf="@id/hp"
+                app:layout_constraintBottom_toTopOf="@id/def2"/>
+
+            <TextView
+                android:id="@+id/def2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="DEF:"
+                app:layout_constraintStart_toEndOf="@id/def"
+                app:layout_constraintBottom_toTopOf="@id/experience2"/>
+            <TextView
+                android:id="@+id/experience2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="XP:"
+                app:layout_constraintStart_toEndOf="@id/experience"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/attackButton"
+        android:layout_width="@dimen/button_width_single"
+        android:layout_height="@dimen/button_height"
+        android:text="Attack"
+        android:layout_marginTop="@dimen/page_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/endButton"
+        />
+
+    <Button
+        android:id="@+id/endButton"
+        android:layout_width="@dimen/button_width_single"
+        android:layout_height="@dimen/button_height"
+        android:text="Start Mission"
+        android:layout_marginBottom="@dimen/page_margin"
+        android:layout_marginStart="@dimen/page_margin"
+        android:layout_marginEnd="@dimen/page_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

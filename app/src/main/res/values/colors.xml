@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="light_grey">#ededed</color>
+
+    //Lutemon colors
+    <color name="pink">#FFC0CB</color>
+    <color name="orange">#FFA500</color>
+    <color name="green">#008000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="button_color">#FF69B4</color>
+
+    <color name="pastel_green">#e8f4ea</color>
+    <color name="dark_pastel_green">#b8d8be</color>
+
+    //component colors (buttons, card items)
+    <color name="button_color_dark_pastel_green">@color/dark_pastel_green</color>
+    <color name="toolbar_header_color">#2e6f40</color>
+    <color name="card_color">@color/pastel_green</color>
+
+
+</resources>

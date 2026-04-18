@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolbar_height">70dp</dimen>
+    <dimen name="toolbar_header_size">40sp</dimen>
+    <dimen name="page_margin">20dp</dimen>
+    <dimen name="button_width_two">180dp</dimen>
+    <dimen name="button_width_single">370dp</dimen>
+    <dimen name="button_margin_bottom">10dp</dimen>
+    <dimen name="button_radius">10dp</dimen>
+    <dimen name="button_border_padding">20dp</dimen>
+    <dimen name="recycler_view_height">700dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+
+
+    //battle arena dimensions
+
+    <dimen name="sword_width_height">50dp</dimen>
+    <dimen name="battle_arena_card_width">160dp</dimen>
+    <dimen name="battle_arena_card_height">340dp</dimen>
+
+    //card item attributes
+
+    <dimen name="card_corner_radius">10dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_height">150dp</dimen>
+
+    //back button stuff
+
+    <dimen name="bbutton_layout_height">60dp</dimen>
+    <dimen name="bbutton_margin_start">6dp</dimen>
+    <dimen name="bbutton_margin_bottom">10dp</dimen>
+    <dimen name="bbutton_margin_top">3dp</dimen>
+
+
+    //basic text properties (create lutemon activity)
+
+    <dimen name="text_size">25dp</dimen>
+
+</resources>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constractLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/StatisticsCardView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginStart="@dimen/card_margin"
+            android:layout_marginTop="@dimen/card_margin"
+            android:layout_marginEnd="@dimen/card_margin"
+            android:layout_marginBottom="@dimen/card_margin"
+
+            app:cardBackgroundColor="@color/card_color"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constractCardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toTopOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutUpper"
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/constraintLayoutLower">
+
+                    <ImageView
+                        android:id="@+id/crewMemberImage"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="20dp"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+
+                        app:srcCompat="@drawable/engineer" />
+
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp"
+
+                        android:layout_marginLeft="@dimen/stat_header_left_margin_from_icon"
+                        android:text="Name"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/crewMemberImage"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayoutLower"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+>
+                    <ScrollView
+                        android:id="@+id/statisticsScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/upperLinear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/missions"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total missions:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+
+                                <TextView
+                                    android:id="@+id/wins"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total wins:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/minsTotal"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mins Total:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/simulationsTotal"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total sim. times:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/simulationAvg"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total avg. sim. time:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lowerLinear"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="@id/upperLinear"
+
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/missions2"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total missions:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+
+                                <TextView
+                                    android:id="@+id/wins2"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total wins:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+
+                                <TextView
+                                    android:id="@+id/minsTotal2"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mins Total:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/simulationTotal2"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total sim. times:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/simulationAvg2"
+                                    android:layout_width="@dimen/stat_element_header_width"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total avg. sim. time:"
+                                    android:textAlignment="center"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

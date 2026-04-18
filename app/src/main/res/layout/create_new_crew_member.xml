@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activities.CreateNewCrewMemberActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/dark_pastel_green"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"/>
+
+    <TextView
+        android:id="@+id/tv_toolbar_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintLeft_toLeftOf="@id/toolbar"
+        app:layout_constraintRight_toRightOf="@id/toolbar"
+        android:textColor="@color/toolbar_header_color"
+        android:textSize="@dimen/toolbar_header_size"
+        android:textStyle="bold"
+        android:text="@string/createNew" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <Button
+            android:id="@+id/buttonPickColor"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Pick a Color"/>
+
+        <View
+            android:id="@+id/colorPreview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:background="#000000"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/buttonPickColor"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Choose an option"
+            app:layout_constraintTop_toTopOf="@id/buttonPickColor"
+            app:layout_constraintBottom_toBottomOf="@id/buttonPickColor"
+            app:layout_constraintEnd_toEndOf="@id/cardViewNameField2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <AutoCompleteTextView
+                android:id="@+id/ageDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewNameField2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:layout_constraintTop_toTopOf="@id/colorPreview">
+
+            <EditText
+                android:id="@+id/nameField"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:inputType="text"
+                app:layout_constraintTop_toBottomOf="@id/buttonPickColor"
+                android:hint="Name" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/defense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toBottomOf="@id/cardViewNameField2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="Defense: " />
+
+        <TextView
+            android:id="@+id/attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/defense"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="Attack: " />
+
+        <TextView
+            android:id="@+id/health"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/attack"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="Health: " />
+
+        <TextView
+            android:id="@+id/xp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/health"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="XP: " />
+
+        <TextView
+            android:id="@+id/defense2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/defense"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="Defense: " />
+
+        <TextView
+            android:id="@+id/attack2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/attack"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="Attack: " />
+
+        <TextView
+            android:id="@+id/health2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/health"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="Health: " />
+
+        <TextView
+            android:id="@+id/xp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/xp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/cardViewNameField2"
+            android:textSize="@dimen/text_size"
+            android:text="XP: " />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/page_margin"
+            app:layout_constraintBottom_toTopOf="@id/button4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@drawable/medic" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="@dimen/button_width_single"
+            android:layout_height="@dimen/button_height"
+            android:text="Cancel"
+            android:layout_marginBottom="@dimen/page_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"             />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="@dimen/button_width_single"
+            android:layout_height="@dimen/button_height"
+            android:text="Create"
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginBottom="@dimen/page_margin"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button3"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

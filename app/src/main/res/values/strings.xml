@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Space Colony</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //Location names
+
+    <string name="home">Chilling</string>
+    <string name="simulator">Simulator</string>
+    <string name="missionControl">"Mission Control"</string>
+    <string name="charts">"Charts"</string>
+    <string name="statistics">Statistics</string>
+    <string name="createNew">Create New Crew Member</string>
+
+
+    //Back button stuff
+    <string name="bbutton_text">Back</string>
+
+    //Create CrewMember dropdown color list
+
+    <string-array name="member_types_array">
+        <item>Pilot</item>
+        <item>Engineer</item>
+        <item>Medic</item>
+        <item>Scientist</item>
+        <item>Soldier</item>
+    </string-array>
+
+
+</resources>
