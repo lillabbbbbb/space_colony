@@ -19,7 +19,7 @@ public class CrewMemberStatistics {
 
     private static Map<Integer, Integer> totalMissions = new HashMap<>();
     private static Map<Integer, Integer> totalWins = new HashMap<>();
-    private static Map<Integer, List<Integer>> simuationTimes  = new HashMap<>();
+    private static Map<Integer, List<Integer>> simulationTimes = new HashMap<>();
     private static Map<Integer, Float> avgSimulationTime  = new HashMap<>();
     private static Map<Integer, Integer> gainedXP  = new HashMap<>();
 
@@ -48,27 +48,29 @@ public class CrewMemberStatistics {
 
     }
 
-    public static void addSimulationTime(CrewMember crewMember, int durationMins){
+    public static void addSimulationTime(int id, int durationMins){
+        //if there is no crewmember with the given id
+        if(simulationTimes.get(id) == null) return;
+
         //increment the crewMember's number of wins
-        int id = crewMember.getId();
         try {
-            List<Integer> times = simuationTimes.get(id);
+            List<Integer> times = simulationTimes.get(id);
             times.add(durationMins);
-            simuationTimes.replace(id, times);
+            simulationTimes.replace(id, times);
         }catch(NullPointerException e){
             List<Integer> times = new ArrayList<>();
             times.add(durationMins);
-            simuationTimes.put(id, times);
+            simulationTimes.put(id, times);
         }
 
         //update the average simuation time
         int sum = 0;
-        for (int i = 0; i < simuationTimes.get(id).size(); i++){
+        for (int i = 0; i < simulationTimes.get(id).size(); i++){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                sum += simuationTimes.get(id).get(i);
+                sum += simulationTimes.get(id).get(i);
             }
         }
-        int total = simuationTimes.get(id).size();
+        int total = simulationTimes.get(id).size();
         avgSimulationTime.replace(id, calcAvg(sum, total));
 
     }
@@ -104,7 +106,7 @@ public class CrewMemberStatistics {
             Log.d("TAG", areaName);
             innerList.add(areaName);
             Log.d("TAG", "There are currently " + counter + " crewMembers here.");
-            innerList.add("There are currently " + counter + " crewMembers here.");
+            innerList.add("There are currently " + counter + " crew members here.");
             innerList.add("View " + areaName);
             Log.d("TAG", "View " + areaName);
 
@@ -125,14 +127,14 @@ public class CrewMemberStatistics {
     }
 
     public static int getNumOfSimulations(int id){
-        return simuationTimes.get(id) == null ? 0 : simuationTimes.get(id).size();
+        return simulationTimes.get(id) == null ? 0 : simulationTimes.get(id).size();
     }
 
     public static int getTotalSimulationMins(int id){
-        if(simuationTimes.get(id) == null){
+        if(simulationTimes.get(id) == null){
             return 0;
         }else{
-            return simuationTimes.get(id).stream()
+            return simulationTimes.get(id).stream()
                     .mapToInt(i -> i)
                     .sum();
         }
@@ -155,13 +157,13 @@ public class CrewMemberStatistics {
 
     //ChatGPT was used for figuring out the syntax for this one
     public static int getTotalMins(){
-        return simuationTimes.values().stream()
+        return simulationTimes.values().stream()
                 .flatMap(List::stream)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
     public static int getTotalTimes(){
-        return simuationTimes.values().stream()
+        return simulationTimes.values().stream()
                 .mapToInt(List::size)
                 .sum();
     }

@@ -3,8 +3,11 @@ package com.example.spaceCrew.utils;
 import android.util.Log;
 
 import com.example.spaceCrew.crewMembers.CrewMember;
+import com.example.spaceCrew.crewMembers.Threat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class MissionManager {
     /*
@@ -15,6 +18,7 @@ public class MissionManager {
     //global variables
     private static MissionManager instance; //the singleton instance
     private static CrewMember[] crewMembersInMission = new CrewMember[2];
+    private static Threat threat;
     private static int playerIndex; //the index of the crewMember in the crewMembersInMission list that the player controls
     private static int whoseTurn; //the index of the crewMember who's turn is currenly
     private CrewMember winner;
@@ -23,6 +27,11 @@ public class MissionManager {
     private static boolean isMissionInProgress = false;
     private static String playerName = "You";
     private static String compName = "Computer";
+    private static final String ASTEROID_STORM = "Asteroid Storm";
+    private static final String ALIEN_ATTACK = "Alien Attack";
+    private static final String KITCHEN_FIRE = "Fire in the Kitchen";
+    private static final String FUEL_LEAKAGE = "Fuel Leakage";
+    private static final String SOLAR_FLARES = "Solar Flares";
 
 
     //private constructor
@@ -46,12 +55,52 @@ public class MissionManager {
     }
 
 
+    public static void generateThreat() {
+
+        //decide on type of threat based on the players on mission
+        ArrayList<String> threatOptions = new ArrayList<>();
+        ArrayList<String> selectedTypes = (ArrayList)Arrays.stream(crewMembersInMission).map(m -> m.getMemberType());
+
+        if(selectedTypes.contains(CrewMemberManager.SOLDIER)){
+            threatOptions.add(MissionManager.ASTEROID_STORM);
+            threatOptions.add(MissionManager.ALIEN_ATTACK);
+        }
+        if(selectedTypes.contains(CrewMemberManager.MEDIC)){
+            threatOptions.add(MissionManager.KITCHEN_FIRE);
+        }
+        if(selectedTypes.contains(CrewMemberManager.ENGINEER)){
+            threatOptions.add(MissionManager.FUEL_LEAKAGE);
+        }
+        if(selectedTypes.contains(CrewMemberManager.SCIENTIST)){
+            threatOptions.add(MissionManager.SOLAR_FLARES);
+        }
+        if(selectedTypes.contains(CrewMemberManager.PILOT)){
+            threatOptions.add(MissionManager.ASTEROID_STORM);
+            threatOptions.add(MissionManager.FUEL_LEAKAGE);
+        }
+
+        Random r = new Random();
+        int chosenThreatIndex = r.nextInt(0, threatOptions.size());
+
+        int def = 0;
+        int atk = 0;
+        int hp = 0;
+        int xp = 0;
+
+        threat = new Threat(threatOptions.get(chosenThreatIndex), def, atk, hp, xp);
+
+    }
+
+
 
     public static void startMission(){
         //if-check in case the startMission() method is called inappropriately
         if(crewMembersInMission[0] == null && crewMembersInMission[1] == null) {
             return;
         }
+
+        generateThreat();
+
         //randomize the player's crewMember, and who starts the game out of the two
         playerIndex = assign0or1();
         missionDescription = "";

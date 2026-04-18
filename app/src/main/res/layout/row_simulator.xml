@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constractLayout"
+    android:id="@+id/constraintLayout"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constractCardLayout"
+            android:id="@+id/constraintCardLayout"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             app:layout_constraintBottom_toTopOf="@+id/image"
@@ -105,7 +105,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
-                android:id="@+id/lutemonImage"
+                android:id="@+id/crewMemberImage"
                 android:layout_width="120dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="0dp"
@@ -114,7 +114,7 @@
                 app:layout_constraintStart_toStartOf="@id/name"
                 app:layout_constraintTop_toBottomOf="@id/name"
 
-                app:srcCompat="@drawable/boy" />
+                app:srcCompat="@drawable/engineer" />
 
 
             <CheckBox
@@ -152,7 +152,7 @@
                 android:textAlignment="center"
                 android:textStyle="italic"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lutemonImage" />
+                app:layout_constraintTop_toBottomOf="@id/crewMemberImage" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

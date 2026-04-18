@@ -5,7 +5,7 @@
 
     //Location names
 
-    <string name="home">Chilling</string>
+    <string name="home">Quarters</string>
     <string name="simulator">Simulator</string>
     <string name="missionControl">"Mission Control"</string>
     <string name="charts">"Charts"</string>

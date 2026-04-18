@@ -50,8 +50,53 @@
         android:paddingTop="10dp"
         >
 
+        <ImageView
+            android:id="@+id/sword"
+            android:layout_width="@dimen/sword_width_height"
+            android:layout_height="@dimen/sword_width_height"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutLeft"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutLeft"
+            app:srcCompat="@drawable/lightsabers"
+            />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutLeft"
+            android:id="@+id/constraintLayoutBattleDescription"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/constraintLayoutLeft"
+            android:layout_marginTop="@dimen/page_margin"
+            android:layout_marginStart="@dimen/page_margin"
+            android:layout_marginEnd="@dimen/page_margin">
+
+            <ScrollView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/my_textbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="The mission description will appear here."
+                    android:gravity="top|start"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:minLines="5"
+                    android:textSize="15sp"
+                    android:ellipsize="none" />
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutRight"
             android:layout_width="@dimen/battle_arena_card_width"
             android:layout_height="@dimen/battle_arena_card_height"
             android:layout_marginEnd="@dimen/page_margin"
@@ -149,58 +194,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/sword"
-            android:layout_width="@dimen/sword_width_height"
-            android:layout_height="@dimen/sword_width_height"
-            app:layout_constraintTop_toTopOf="@id/constraintLayoutLeft"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutLeft"
-            app:srcCompat="@drawable/lightsabers"
-            />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutBattleDescription"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@id/constraintLayoutLeft"
-            android:layout_marginTop="@dimen/page_margin"
-            android:layout_marginStart="@dimen/page_margin"
-            android:layout_marginEnd="@dimen/page_margin">
-
-            <ScrollView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-
-                <TextView
-                    android:id="@+id/my_textbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="The mission description will appear here."
-                    android:gravity="top|start"
-                    android:scrollbars="vertical"
-                    android:overScrollMode="always"
-                    android:inputType="textMultiLine"
-                    android:singleLine="false"
-                    android:minLines="5"
-                    android:textSize="15sp"
-                    android:ellipsize="none" />
-            </ScrollView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutRight"
+            android:id="@+id/constraintLayoutLeft"
             android:layout_width="@dimen/battle_arena_card_width"
             android:layout_height="@dimen/battle_arena_card_height"
             android:layout_marginStart="@dimen/page_margin"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/constraintLayoutLeft">
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutRight">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

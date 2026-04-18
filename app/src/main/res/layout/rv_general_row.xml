@@ -113,7 +113,7 @@
                 app:layout_constraintStart_toStartOf="@id/name"
                 app:layout_constraintTop_toBottomOf="@id/name"
 
-                app:srcCompat="@drawable/boy" />
+                app:srcCompat="@drawable/engineer" />
 
 
             <CheckBox

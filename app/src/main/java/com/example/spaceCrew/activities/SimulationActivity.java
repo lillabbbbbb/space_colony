@@ -75,7 +75,7 @@ public class SimulationActivity extends AppCompatActivity {
                                 // Convert to full minutes
                                 int minutes = (elapsedMillis / 1000) / 60;
 
-                                CrewMemberStatistics.addSimulationTime(CrewMemberManager.getInstance().getCrewMembers().get(r.getAdapterPosition()), minutes);
+                                CrewMemberStatistics.addSimulationTime(CrewMemberManager.getInstance().getCrewMembers().get(r.getAdapterPosition()).getId(), minutes);
                             });
 
             //send crewMember from simulator to home

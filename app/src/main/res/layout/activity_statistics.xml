@@ -155,7 +155,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/trainingTotal"
+                            android:id="@+id/simulationTotal"
                             android:layout_width="@dimen/stat_element_header_width"
                             android:layout_height="wrap_content"
                             android:text="Total sim. times:"
@@ -205,7 +205,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/trainingTotal2"
+                            android:id="@+id/simulationTotal2"
                             android:layout_width="@dimen/stat_element_header_width"
                             android:layout_height="wrap_content"
                             android:text="Total sim. times:"
@@ -213,7 +213,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/trainingAvg2"
+                            android:id="@+id/simulationAvg2"
                             android:layout_width="@dimen/stat_element_header_width"
                             android:layout_height="wrap_content"
                             android:text="Total avg. sim. time:"

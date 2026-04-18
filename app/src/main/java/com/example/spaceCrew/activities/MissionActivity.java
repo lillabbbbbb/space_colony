@@ -38,7 +38,7 @@ public class MissionActivity extends AppCompatActivity {
     TextView atk1, hp1, def1, xp1;
     TextView atk2, hp2, def2, xp2;
     ImageView imageView1, imageView2;
-    ImageView swordView;
+    ImageView lightsaberView;
     Button attackButton, endmissionButton;
     ArrayList<TextView> atks = new ArrayList<>();
     ArrayList<TextView> hps = new ArrayList<>();
@@ -65,7 +65,7 @@ public class MissionActivity extends AppCompatActivity {
         attackButton = findViewById(R.id.attackButton);
         attackButton.setVisibility(View.INVISIBLE);
         endmissionButton = findViewById(R.id.endButton);
-        swordView = findViewById(R.id.sword);
+        lightsaberView = findViewById(R.id.sword);
         missionDescription = findViewById(R.id.my_textbox);
 
         atk1 = findViewById(R.id.atk2);
@@ -180,30 +180,30 @@ public class MissionActivity extends AppCompatActivity {
         });
 
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
-            CrewMember lutemon = CrewMemberManager.getInstance().getCrewMembers().get(position);
+            CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
 
             int index = 0;
 
-            MissionManager.addCrewMemberToMission(lutemon, index);
+            MissionManager.addCrewMemberToMission(crewMember, index);
             //bind views to variables for Lutemon 1
-            setViewValues(lutemon, index);
+            setViewValues(crewMember, index);
         });
 
         dropdown2.setOnItemClickListener((parent, view, position, id) -> {
-            CrewMember lutemon = CrewMemberManager.getInstance().getCrewMembers().get(position);
+            CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
 
             int index = 1;
 
-            MissionManager.addCrewMemberToMission(lutemon, index);
+            MissionManager.addCrewMemberToMission(crewMember, index);
             //bind views to variables for Lutemon 2
-            setViewValues(lutemon, index);
+            setViewValues(crewMember, index);
         });
 
         endmissionButton.setOnClickListener(view -> {
 
             if (endmissionButton.getText().toString().equals("Start mission")) {
 
-                //making sure that two lutemons are selected
+                //making sure that two crewMembers are selected
                 if(MissionManager.getCrewMembersInMission()[0] == null || MissionManager.getCrewMembersInMission()[1] == null) {
                     new AlertDialog.Builder(this)
                             .setTitle("Warning")
@@ -216,7 +216,7 @@ public class MissionActivity extends AppCompatActivity {
                             })
                             .show();
                 }
-                //check if two lutemons are selected and they are not the same
+                //check if two crewMembers are selected and they are not the same
                 else if(MissionManager.getCrewMembersInMission()[0] != null && MissionManager.getCrewMembersInMission()[1] != null) {
                     if (MissionManager.getCrewMembersInMission()[0].getId() == MissionManager.getCrewMembersInMission()[1].getId()) {
                         new AlertDialog.Builder(this)
@@ -231,7 +231,7 @@ public class MissionActivity extends AppCompatActivity {
                         endmissionButton.setText("End mission");
                         attackButton.setVisibility(View.VISIBLE);
                         attackButton.setEnabled(MissionManager.getWhoseTurn() == MissionManager.getPlayerIndex());
-                        swordView.setImageResource(R.drawable.lightsaber_left);
+                        lightsaberView.setImageResource(R.drawable.lightsaber_left);
                         MissionManager.startMission();
 
                         //refresh visuals
@@ -239,7 +239,7 @@ public class MissionActivity extends AppCompatActivity {
 
                         Log.d("DEBUG", MissionManager.getMissionDescription());
 
-                        //apply colors to dropdown to show which lutemon is the player's (green) and the computer's (red)
+                        //apply colors to dropdown to show which crewMember is the player's (green) and the computer's (red)
                         GradientDrawable drawable1 = new GradientDrawable();
                         drawable1.setColor(Color.GREEN); // Background color
                         drawable1.setStroke(4, Color.GREEN); // Border width and color
@@ -247,7 +247,7 @@ public class MissionActivity extends AppCompatActivity {
                         // Apply it to the dropdown
                         dropdownList.get(MissionManager.getPlayerIndex()).setDropDownBackgroundDrawable(drawable1);
 
-                        //apply colors to dropdown to show which lutemon is the player's (green) and the computer's (red)
+                        //apply colors to dropdown to show which crewMember is the player's (green) and the computer's (red)
                         GradientDrawable drawable2 = new GradientDrawable();
                         drawable2.setColor(Color.RED); // Background color
                         drawable2.setStroke(4, Color.RED); // Border width and color
@@ -279,39 +279,27 @@ public class MissionActivity extends AppCompatActivity {
 
         });
     }
-
-    public void swordAnimation(ImageView swordView){
-        ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(swordView, "scaleX", 1f, -1f);
-        flipAnimator.setDuration(500); // time to flip
-        flipAnimator.setRepeatMode(ValueAnimator.REVERSE); // flip back
-        flipAnimator.setRepeatCount(1); // do it only once (flip there and back)
-        flipAnimator.start();
-        swordView.animate()
-                .scaleX(-1f)   // flip horizontally
-                .setDuration(300)
-                .start();
-    }
-    public void oneWayAnmiation(ImageView swordView){
-        swordView.animate()
-                .scaleX((-1) * swordView.getScaleX())   // flip horizontally
+    public void oneWayAnmiation(ImageView lightsaberView){
+        lightsaberView.animate()
+                .scaleX((-1) * lightsaberView.getScaleX())   // flip horizontally
                 .setDuration(300)
                 .start();
     }
 
 
-    public void setViewValues(CrewMember lutemon, int index){
-        atks.get(index).setText(String.valueOf(lutemon.getAtk()));
-        hps.get(index).setText(String.valueOf(lutemon.getHp()));
-        defs.get(index).setText(String.valueOf(lutemon.getDef()));
-        xps.get(index).setText(String.valueOf(lutemon.getXp()));
-        images.get(index).setImageResource(CrewMemberManager.getSkin(lutemon));
-        images.get(index).setImageBitmap(ImageTinter.tintWithoutBlack(images.get(index), lutemon));
+    public void setViewValues(CrewMember crewMember, int index){
+        atks.get(index).setText(String.valueOf(crewMember.getAtk()));
+        hps.get(index).setText(String.valueOf(crewMember.getHp()));
+        defs.get(index).setText(String.valueOf(crewMember.getDef()));
+        xps.get(index).setText(String.valueOf(crewMember.getXp()));
+        images.get(index).setImageResource(CrewMemberManager.getSkin(crewMember));
+        images.get(index).setImageBitmap(ImageTinter.tintWithoutBlack(images.get(index), crewMember));
     }
 
     public void refresh(){
         attackButton.setEnabled(MissionManager.getWhoseTurn() == MissionManager.getPlayerIndex());
         missionDescription.setText(MissionManager.getMissionDescription());
-        oneWayAnmiation(swordView);
+        oneWayAnmiation(lightsaberView);
     }
 
 }

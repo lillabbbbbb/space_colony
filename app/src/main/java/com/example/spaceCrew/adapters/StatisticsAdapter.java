@@ -53,8 +53,8 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
         holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
         holder.wins.setText(String.valueOf(CrewMemberStatistics.getWins(crewMember.getId())));
         holder.missions.setText(String.valueOf(CrewMemberStatistics.getMissions(crewMember.getId())));
-        holder.minsTotal.setText(String.valueOf(CrewMemberStatistics.getNumOfSimulations(crewMember.getId())));
-        holder.totalTime.setText(String.valueOf(CrewMemberStatistics.getTotalSimulationMins(crewMember.getId())));
+        holder.minsTotal.setText(String.valueOf(CrewMemberStatistics.getTotalSimulationMins(crewMember.getId())));
+        holder.totalTime.setText(String.valueOf(CrewMemberStatistics.getNumOfSimulations(crewMember.getId())));
         holder.avgTime.setText(String.valueOf(CrewMemberStatistics.getAvgSimulationTimes(crewMember.getId())));
 
         int tintR = Color.red(crewMember.getColor());     // returns 0–255
@@ -85,8 +85,8 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
             crewMemberImage = itemView.findViewById(R.id.crewMemberImage);
             missions = itemView.findViewById(R.id.missions2);
             wins = itemView.findViewById(R.id.wins2);
-            avgTime = itemView.findViewById(R.id.trainingAvg2);
-            totalTime = itemView.findViewById(R.id.trainingTotal2);
+            avgTime = itemView.findViewById(R.id.simulationAvg2);
+            totalTime = itemView.findViewById(R.id.simulationTotal2);
             minsTotal = itemView.findViewById(R.id.minsTotal2);
         }
     }
