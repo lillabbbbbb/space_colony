@@ -50,14 +50,6 @@ public class Threat {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId(){
-        return this.id;
-    }
-
     public int getColor() {
         return color;
     }
@@ -66,13 +58,6 @@ public class Threat {
         this.color = color;
     }
 
-    public String getEyeColor() {
-        return eyeColor;
-    }
-
-    public void setEyeColor(String eyeColor) {
-        this.eyeColor = eyeColor;
-    }
 
     public int getAtk() {
         return atk;
@@ -116,14 +101,6 @@ public class Threat {
 
     public void setXp(int experience) {
         this.experience = experience;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
 }

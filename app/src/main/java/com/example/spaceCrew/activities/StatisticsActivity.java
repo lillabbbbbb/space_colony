@@ -47,9 +47,9 @@ public class StatisticsActivity extends AppCompatActivity {
 
         //load total statistics data
         missions = findViewById(R.id.missions2);
-        missions.setText(String.valueOf(CrewMemberStatistics.getTotalWins()));
+        missions.setText(String.valueOf(CrewMemberStatistics.getTotalMissions()));
         wins = findViewById(R.id.wins2);
-        wins.setText(String.valueOf(CrewMemberStatistics.getTotalWins()));
+        wins.setText(String.valueOf(CrewMemberStatistics.getWins()));
         totalSimulationMins = findViewById(R.id.minsTotal2);
         totalSimulationMins.setText(String.valueOf(CrewMemberStatistics.getTotalMins()));
         totalSimulationTimes = findViewById(R.id.simulationTotal2);

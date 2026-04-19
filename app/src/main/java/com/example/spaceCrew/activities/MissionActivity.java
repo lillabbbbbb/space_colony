@@ -37,7 +37,7 @@ public class MissionActivity extends AppCompatActivity {
     Button backButton;
     TextView atk1, hp1, def1, xp1;
     TextView atk2, hp2, def2, xp2;
-    ImageView imageView1, imageView2;
+    ImageView imageView1, imageView2, imageViewThreat;
     ImageView lightsaberView;
     Button attackButton, endmissionButton;
     ArrayList<TextView> atks = new ArrayList<>();
@@ -73,12 +73,30 @@ public class MissionActivity extends AppCompatActivity {
         def1 = findViewById(R.id.def2);
         xp1 = findViewById(R.id.experience2);
         imageView1 = findViewById(R.id.image1);
+        imageView1.setOnClickListener(view -> {
+            //fun animation
+            ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(imageView1, "scaleX", 1.2f, 1.2f);
+            flipAnimator.setDuration(500); // time to flip
+            flipAnimator.setRepeatMode(ValueAnimator.REVERSE); // flip back
+            flipAnimator.setRepeatCount(1); // do it only once (flip there and back)
+            flipAnimator.start();
+        });
 
         atk2 = findViewById(R.id.atk4);
         hp2 = findViewById(R.id.hp4);
         def2 = findViewById(R.id.def4);
         xp2 = findViewById(R.id.experience4);
         imageView2 = findViewById(R.id.image2);
+        imageView2.setOnClickListener(view -> {
+            //fun animation
+            ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(imageView2, "scaleX", 1.2f, 1.2f);
+            flipAnimator.setDuration(500); // time to flip
+            flipAnimator.setRepeatMode(ValueAnimator.REVERSE); // flip back
+            flipAnimator.setRepeatCount(1); // do it only once (flip there and back)
+            flipAnimator.start();
+        });
+        imageViewThreat = findViewById(R.id.imageThreat);
+
 
 
 
@@ -110,12 +128,12 @@ public class MissionActivity extends AppCompatActivity {
         images.add(imageView2);
 
 
-        //call getInstance() method to instantiate getLutemonsInmission array
+        //call getInstance() method to instantiate getCrew MembersInmission array
         //MissionManager.getInstance();
 
         for(int j = 0; j < MissionManager.getCrewMembersInMission().length; j++){
             if(MissionManager.getCrewMembersInMission()[j] != null){
-                //bind views to variables for Lutemon i
+                //bind views to variables for Crew Member i
                 atks.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getAtk()));
                 hps.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getMissionHp()));
                 defs.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getDef()));
@@ -138,8 +156,8 @@ public class MissionActivity extends AppCompatActivity {
 
         attackButton.setOnClickListener(view -> {
             //execute attack if it's the player's turn
-            if(MissionManager.getPlayerIndex() == MissionManager.getWhoseTurn() && MissionManager.areBothAlive()){
-                Log.d("DEBUG", String.valueOf(MissionManager.getWhoseTurn()));
+            if(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress() && MissionManager.areMembersAlive()){
+                Log.d("DEBUG", String.valueOf(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress()));
                 Log.d("DEBUG", MissionManager.getMissionDescription());
 
                 //PLAYER ATTACK
@@ -149,13 +167,15 @@ public class MissionActivity extends AppCompatActivity {
                 //refresh visuals
                 refresh();
 
+                //short artificial delay
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    if (MissionManager.areBothAlive()) {
+                    if (MissionManager.areMembersAlive() && MissionManager.getIsMissionInProgress()) {
 
                         //COMPUTER ATTACK
 
                         MissionManager.computerAttack();
 
+                        //short artificial delay
                         new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
                             //refresh visuals
@@ -168,12 +188,12 @@ public class MissionActivity extends AppCompatActivity {
                 Log.d("DEBUG", MissionManager.getMissionDescription());
 
             }
+            //debugging
             else {
 
                 Log.d("DEBUG", "else");
-                Log.d("DEBUG", String.valueOf(MissionManager.getPlayerIndex() == MissionManager.getWhoseTurn()));
-                Log.d("DEBUG", String.valueOf(MissionManager.areBothAlive()));
-                Log.d("DEBUG", String.valueOf(MissionManager.getWhoseTurn()));
+                Log.d("DEBUG", String.valueOf(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress()));
+                Log.d("DEBUG", String.valueOf(MissionManager.areMembersAlive()));
                 Log.d("DEBUG", MissionManager.getMissionDescription());
 
             }
@@ -185,7 +205,8 @@ public class MissionActivity extends AppCompatActivity {
             int index = 0;
 
             MissionManager.addCrewMemberToMission(crewMember, index);
-            //bind views to variables for Lutemon 1
+
+            //bind views to variables for Member 1
             setViewValues(crewMember, index);
         });
 
@@ -195,19 +216,20 @@ public class MissionActivity extends AppCompatActivity {
             int index = 1;
 
             MissionManager.addCrewMemberToMission(crewMember, index);
-            //bind views to variables for Lutemon 2
+
+            //bind views to variables for Member 2
             setViewValues(crewMember, index);
         });
 
         endmissionButton.setOnClickListener(view -> {
 
-            if (endmissionButton.getText().toString().equals("Start mission")) {
+            if (endmissionButton.getText().toString().equals("Start Mission")) {
 
                 //making sure that two crewMembers are selected
                 if(MissionManager.getCrewMembersInMission()[0] == null || MissionManager.getCrewMembersInMission()[1] == null) {
                     new AlertDialog.Builder(this)
                             .setTitle("Warning")
-                            .setMessage("Two Lutemons must be selected in order to start a mission.")
+                            .setMessage("Two Crew Members must be selected in order to start a mission.")
                             .setPositiveButton("OK", (dialog, which) -> {
                                 // Handle OK click
                             })
@@ -217,22 +239,33 @@ public class MissionActivity extends AppCompatActivity {
                             .show();
                 }
                 //check if two crewMembers are selected and they are not the same
-                else if(MissionManager.getCrewMembersInMission()[0] != null && MissionManager.getCrewMembersInMission()[1] != null) {
+                else if (MissionManager.getCrewMembersInMission()[0] != null && MissionManager.getCrewMembersInMission()[1] != null){
                     if (MissionManager.getCrewMembersInMission()[0].getId() == MissionManager.getCrewMembersInMission()[1].getId()) {
                         new AlertDialog.Builder(this)
                                 .setTitle("Warning")
-                                .setMessage("You must select two different Lutemons to mission.")
+                                .setMessage("You must select two different Crew Members to mission.")
                                 .setPositiveButton("OK", (dialog, which) -> {
                                     // Handle OK click
                                 })
                                 .show();
                     }
                     else{ //start mission fr now!
+
+                        MissionManager.startMission();
+
                         endmissionButton.setText("End mission");
                         attackButton.setVisibility(View.VISIBLE);
-                        attackButton.setEnabled(MissionManager.getWhoseTurn() == MissionManager.getPlayerIndex());
+                        attackButton.setEnabled(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress());
                         lightsaberView.setImageResource(R.drawable.lightsaber_left);
-                        MissionManager.startMission();
+
+
+                        //set the threat's image and tint
+                        imageViewThreat.setImageResource(MissionManager.getThreatImageResource());
+                        int tintR = Color.red(MissionManager.getThreat().getColor());     // returns 0–255
+                        int tintG = Color.green(MissionManager.getThreat().getColor()); // returns 0–255
+                        int tintB = Color.blue(MissionManager.getThreat().getColor());  // returns 0–255
+                        imageViewThreat.setImageBitmap(ImageTinter.tintWithoutBlack(imageViewThreat,tintR, tintG, tintB));
+
 
                         //refresh visuals
                         refresh();
@@ -297,7 +330,7 @@ public class MissionActivity extends AppCompatActivity {
     }
 
     public void refresh(){
-        attackButton.setEnabled(MissionManager.getWhoseTurn() == MissionManager.getPlayerIndex());
+        attackButton.setEnabled(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress());
         missionDescription.setText(MissionManager.getMissionDescription());
         oneWayAnmiation(lightsaberView);
     }

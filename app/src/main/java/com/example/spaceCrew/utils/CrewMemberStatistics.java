@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.spaceCrew.crewMembers.CrewMember;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,10 @@ public class CrewMemberStatistics {
     public static String overall = "Overall";
 
     private static Map<Integer, Integer> totalMissions = new HashMap<>();
-    private static Map<Integer, Integer> totalWins = new HashMap<>();
+    private static Map<Integer, Integer> wins = new HashMap<>();
+    private static int totalWins = 0;
+    private static int totalLosses = 0;
+
     private static Map<Integer, List<Integer>> simulationTimes = new HashMap<>();
     private static Map<Integer, Float> avgSimulationTime  = new HashMap<>();
     private static Map<Integer, Integer> gainedXP  = new HashMap<>();
@@ -40,11 +44,28 @@ public class CrewMemberStatistics {
         //increment the crewMember's number of wins
         int id = crewMember.getId();
         try {
-            int missions = totalWins.get(id);
-            totalWins.replace(id, ++missions);
+            int missions = wins.get(id);
+            wins.replace(id, ++missions);
         }catch(NullPointerException e){
-            totalWins.put(id, 1);
+            wins.put(id, 1);
         }
+
+    }
+
+    public static void addWin(CrewMember[] crewMembers){
+        //increment the crewMember's number of wins
+
+        Arrays.stream(crewMembers).forEach(m -> {
+            int id = m.getId();
+            try {
+                int missions = wins.get(id);
+                wins.replace(id, ++missions);
+            } catch (NullPointerException e) {
+                wins.put(id, 1);
+            }
+        });
+        totalWins++;
+
 
     }
 
@@ -123,7 +144,7 @@ public class CrewMemberStatistics {
     }
 
     public static int getWins(int id){
-        return totalWins.getOrDefault(id, 0);
+        return wins.getOrDefault(id, 0);
     }
 
     public static int getNumOfSimulations(int id){
@@ -145,14 +166,20 @@ public class CrewMemberStatistics {
 
 
     public static int getTotalMissions(){
-        return totalMissions.values().stream()
+        return totalWins + totalLosses;
+    }
+    public static int getWins(){
+        return wins.values().stream()
                 .mapToInt(i -> i)
                 .sum();
     }
-    public static int getTotalWins(){
-        return totalWins.values().stream()
-                .mapToInt(i -> i)
-                .sum();
+
+    public static int getTotalWins() {
+        return totalWins;
+    }
+
+    public static void addLoss(){
+        totalLosses++;
     }
 
     //ChatGPT was used for figuring out the syntax for this one

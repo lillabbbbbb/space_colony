@@ -10,7 +10,7 @@
     <string name="missionControl">"Mission Control"</string>
     <string name="charts">"Charts"</string>
     <string name="statistics">Statistics</string>
-    <string name="createNew">Create New Crew Member</string>
+    <string name="createNew">New Crew Member</string>
 
 
     //Back button stuff

@@ -134,6 +134,22 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
         final int[] xp = new int[1];
         final String[] type = new String[1];
 
+        crewMemberImage.setImageResource(R.drawable.pilot);
+        def[0] = 70;
+        atk[0] = 200;
+        hp[0] = 1800;
+        xp[0] = 1500;
+        type[0] = CrewMemberManager.PILOT;
+
+        defense = findViewById(R.id.defense2);
+        defense.setText(String.valueOf(def[0]));
+        attack = findViewById(R.id.attack2);
+        attack.setText(String.valueOf(atk[0]));
+        health = findViewById(R.id.health2);
+        health.setText(String.valueOf(hp[0]));
+        experience = findViewById(R.id.xp2);
+        experience.setText(String.valueOf(xp[0]));
+
 
 // Handle selection
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
@@ -178,23 +194,19 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
                     xp[0] = 4000;
                     break;
                 default:
-                    crewMemberImage.setImageResource(R.drawable.soldier);
-                    def[0] = 0;
-                    atk[0] = 46;
-                    hp[0] = 3000;
-                    xp[0] = 0;
+                    crewMemberImage.setImageResource(R.drawable.pilot);
+                    def[0] = 70;
+                    atk[0] = 200;
+                    hp[0] = 1800;
+                    xp[0] = 1500;
                     break;
             }
             //apply the previously selected color for the new skin
             crewMemberImage.setImageBitmap(ImageTinter.tintWithoutBlack(crewMemberImage, tintR, tintG, tintB));
 
-            defense = findViewById(R.id.defense2);
             defense.setText(String.valueOf(def[0]));
-            attack = findViewById(R.id.attack2);
             attack.setText(String.valueOf(atk[0]));
-            health = findViewById(R.id.health2);
             health.setText(String.valueOf(hp[0]));
-            experience = findViewById(R.id.xp2);
             experience.setText(String.valueOf(xp[0]));
         });
 
@@ -214,6 +226,8 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
                 CrewMemberManager.createCrewMember(new CrewMember(name, tintR, tintG, tintB, def[0], atk[0], hp[0], xp[0], type[0]));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
                     Log.i("TAG", CrewMemberManager.getInstance().getCrewMembers().getLast().getName() + " created.");
+                    Log.i("TAG", CrewMemberManager.getInstance().getCrewMembers().getLast().getMemberType() + " created.");
+
                 }
                 ActivityNavigator.goBack(this);
             }

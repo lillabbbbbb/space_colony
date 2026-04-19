@@ -64,10 +64,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutBattleDescription"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@id/constraintLayoutLeft"
             android:layout_marginTop="@dimen/page_margin"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin">
@@ -96,207 +94,291 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutRight"
-            android:layout_width="@dimen/battle_arena_card_width"
-            android:layout_height="@dimen/battle_arena_card_height"
-            android:layout_marginEnd="@dimen/page_margin"
-            android:layout_marginTop="@dimen/page_margin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                android:hint="Choose an option"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-                <AutoCompleteTextView
-                    android:id="@+id/dropdownMenu2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:inputType="none"
-                    android:dropDownHeight="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@drawable/engineer"
-                />
-
-            <TextView
-                android:id="@+id/atk3"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="ATK:"
-                app:layout_constraintEnd_toStartOf="@id/atk4"
-                app:layout_constraintBottom_toTopOf="@id/hp3"/>
-
-            <TextView
-                android:id="@+id/hp3"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="HP:"
-                app:layout_constraintEnd_toStartOf="@id/hp4"
-                app:layout_constraintBottom_toTopOf="@id/def3"/>
-
-            <TextView
-                android:id="@+id/def3"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="DEF:"
-                app:layout_constraintEnd_toStartOf="@id/def4"
-                app:layout_constraintBottom_toTopOf="@id/experience3"/>
-            <TextView
-                android:id="@+id/experience3"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="XP:"
-                app:layout_constraintEnd_toStartOf="@id/experience4"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <TextView
-                android:id="@+id/atk4"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="ATK:"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/hp4"/>
-
-            <TextView
-                android:id="@+id/hp4"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="?"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/def4"/>
-
-            <TextView
-                android:id="@+id/def4"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="?"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/experience4"/>
-            <TextView
-                android:id="@+id/experience4"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="?"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutLeft"
             android:layout_width="@dimen/battle_arena_card_width"
-            android:layout_height="@dimen/battle_arena_card_height"
-            android:layout_marginStart="@dimen/page_margin"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/constraintLayoutRight">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/constraintLayoutBattleDescription"
+            >
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutUpper"
+            android:layout_width="@dimen/battle_arena_card_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
                 android:hint="Choose an option"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <AutoCompleteTextView
                     android:id="@+id/dropdownMenu1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:inputType="none"
+                    android:layout_height="@dimen/dropdown_height"
+                    android:completionThreshold="1"
                     android:dropDownHeight="wrap_content"
-                    android:completionThreshold="1"/>
+                    android:inputType="none"
+                    android:textSize="15sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/image1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@drawable/scientist"
-                />
-
+                android:layout_width="@dimen/battle_arena_img_width"
+                android:layout_height="@dimen/battle_arena_img_height"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayout1"
+                app:layout_constraintStart_toStartOf="@id/textInputLayout1"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout1"
+                app:srcCompat="@drawable/infant_grey_outline" />
 
             <TextView
                 android:id="@+id/atk"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="ATK:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/hp"/>
-
+                app:layout_constraintTop_toBottomOf="@id/image1"
+                app:layout_constraintLeft_toLeftOf="@id/image1"
+                app:layout_constraintRight_toLeftOf="@id/atk2"
+                />
             <TextView
                 android:id="@+id/hp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="HP:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/def"/>
-
+                app:layout_constraintStart_toStartOf="@id/atk"
+                app:layout_constraintTop_toBottomOf="@id/atk"/>
             <TextView
                 android:id="@+id/def"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="DEF:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/experience"/>
+                app:layout_constraintStart_toStartOf="@id/atk"
+                app:layout_constraintTop_toBottomOf="@id/hp"
+                />
             <TextView
                 android:id="@+id/experience"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="XP:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
+                app:layout_constraintStart_toStartOf="@id/atk"
+                app:layout_constraintTop_toBottomOf="@id/def"/>
             <TextView
                 android:id="@+id/atk2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="ATK:"
                 app:layout_constraintStart_toEndOf="@id/atk"
-                app:layout_constraintBottom_toTopOf="@id/hp2"/>
-
+                app:layout_constraintEnd_toEndOf="@id/image1"
+                app:layout_constraintTop_toTopOf="@id/atk"
+                />
             <TextView
                 android:id="@+id/hp2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="HP:"
                 app:layout_constraintStart_toEndOf="@id/hp"
-                app:layout_constraintBottom_toTopOf="@id/def2"/>
-
+                app:layout_constraintTop_toTopOf="@id/hp"
+                />
             <TextView
                 android:id="@+id/def2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="DEF:"
                 app:layout_constraintStart_toEndOf="@id/def"
-                app:layout_constraintBottom_toTopOf="@id/experience2"/>
+                app:layout_constraintTop_toTopOf="@id/def"/>
             <TextView
                 android:id="@+id/experience2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="XP:"
                 app:layout_constraintStart_toEndOf="@id/experience"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="@id/experience"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLower"
+                android:layout_width="@dimen/battle_arena_card_width"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayoutUpper"
+                app:layout_constraintStart_toStartOf="@id/constraintLayoutUpper"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:hint="Choose an option"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownMenu2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dropdown_height"
+                        android:textSize="15sp"
+                        android:inputType="none"
+                        android:dropDownHeight="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="@dimen/battle_arena_img_width"
+                    android:layout_height="@dimen/battle_arena_img_height"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayout2"
+                    app:layout_constraintEnd_toEndOf="@id/textInputLayout2"
+                    app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
+                    app:srcCompat="@drawable/grandfather_grey_outline"
+                    />
+                <TextView
+                    android:id="@+id/atk3"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="ATK:"
+                    app:layout_constraintStart_toStartOf="@id/image2"
+                    app:layout_constraintTop_toBottomOf="@id/image2"/>
+                <TextView
+                    android:id="@+id/hp3"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="HP:"
+                    app:layout_constraintTop_toBottomOf="@id/atk3"
+                    app:layout_constraintStart_toStartOf="@id/atk3"/>
+                <TextView
+                    android:id="@+id/def3"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="DEF:"
+                    app:layout_constraintTop_toBottomOf="@id/hp3"
+                    app:layout_constraintStart_toStartOf="@id/hp3"/>
+                <TextView
+                    android:id="@+id/experience3"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="XP:"
+                    app:layout_constraintTop_toBottomOf="@id/def3"
+                    app:layout_constraintStart_toStartOf="@id/def3"/>
+                <TextView
+                    android:id="@+id/atk4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="ATK:"
+                    app:layout_constraintTop_toTopOf="@id/atk3"
+                    app:layout_constraintStart_toEndOf="@id/atk3"/>
+                <TextView
+                    android:id="@+id/hp4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="?"
+                    app:layout_constraintTop_toTopOf="@id/hp3"
+                    app:layout_constraintStart_toEndOf="@id/hp3"/>
+                <TextView
+                    android:id="@+id/def4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="?"
+                    app:layout_constraintTop_toTopOf="@id/def3"
+                    app:layout_constraintStart_toEndOf="@id/def3"/>
+                <TextView
+                    android:id="@+id/experience4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="?"
+                    app:layout_constraintTop_toTopOf="@id/experience3"
+                    app:layout_constraintStart_toEndOf="@id/experience3"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutRight"
+            android:layout_width="@dimen/battle_arena_card_width"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/page_margin"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutLeft"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayoutLeft"
+            app:layout_constraintRight_toRightOf="parent">
+            <ImageView
+                android:id="@+id/imageThreat"
+                android:layout_width="@dimen/battle_arena_img_width"
+                android:layout_height="@dimen/battle_arena_img_height"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/kitchen_fire" />
+            <TextView
+                android:id="@+id/atkThreat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ATK:"
+                app:layout_constraintTop_toBottomOf="@id/imageThreat"
+                app:layout_constraintLeft_toLeftOf="@id/imageThreat"
+                app:layout_constraintRight_toRightOf="@id/imageThreat"
+                app:layout_constraintBottom_toTopOf="@id/hpThreat"/>
+            <TextView
+                android:id="@+id/hpThreat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="HP:"
+                app:layout_constraintStart_toStartOf="@id/atkThreat"
+                app:layout_constraintTop_toBottomOf="@id/atkThreat"/>
+            <TextView
+                android:id="@+id/defThreat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="DEF:"
+                app:layout_constraintStart_toStartOf="@id/atkThreat"
+                app:layout_constraintTop_toBottomOf="@id/hpThreat"
+
+                />
+            <TextView
+                android:id="@+id/experienceThreat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="XP:"
+                app:layout_constraintStart_toStartOf="@id/atkThreat"
+                app:layout_constraintTop_toBottomOf="@id/defThreat"
+
+                />
+            <TextView
+                android:id="@+id/atkThreat2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="ATK:"
+                app:layout_constraintStart_toEndOf="@id/atkThreat"
+                app:layout_constraintTop_toTopOf="@id/atkThreat"/>
+            <TextView
+                android:id="@+id/hpThreat2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="HP:"
+                app:layout_constraintStart_toEndOf="@id/hpThreat"
+                app:layout_constraintTop_toBottomOf="@id/atkThreat2"
+
+                />
+            <TextView
+                android:id="@+id/defThreat2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="DEF:"
+                app:layout_constraintStart_toEndOf="@id/defThreat"
+                app:layout_constraintTop_toTopOf="@id/defThreat"
+                />
+            <TextView
+                android:id="@+id/experienceThreat2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="XP:"
+                app:layout_constraintStart_toEndOf="@id/experienceThreat"
+                app:layout_constraintTop_toTopOf="@id/experienceThreat"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <Button
         android:id="@+id/attackButton"

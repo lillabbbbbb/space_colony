@@ -2,12 +2,15 @@ package com.example.spaceCrew.utils;
 
 import android.util.Log;
 
+import com.example.spaceCrew.R;
 import com.example.spaceCrew.crewMembers.CrewMember;
 import com.example.spaceCrew.crewMembers.Threat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MissionManager {
     /*
@@ -20,13 +23,12 @@ public class MissionManager {
     private static CrewMember[] crewMembersInMission = new CrewMember[2];
     private static Threat threat;
     private static int playerIndex; //the index of the crewMember in the crewMembersInMission list that the player controls
-    private static int whoseTurn; //the index of the crewMember who's turn is currenly
-    private CrewMember winner;
+    private static boolean isThreatTurn;
+    private boolean isCrewVictory;
     private CrewMember loser;
     private static String missionDescription = "";
     private static boolean isMissionInProgress = false;
     private static String playerName = "You";
-    private static String compName = "Computer";
     private static final String ASTEROID_STORM = "Asteroid Storm";
     private static final String ALIEN_ATTACK = "Alien Attack";
     private static final String KITCHEN_FIRE = "Fire in the Kitchen";
@@ -34,7 +36,7 @@ public class MissionManager {
     private static final String SOLAR_FLARES = "Solar Flares";
 
 
-    //private constructor
+    //private constructor, so other classes do not access it
     private MissionManager() {
     }
 
@@ -59,7 +61,7 @@ public class MissionManager {
 
         //decide on type of threat based on the players on mission
         ArrayList<String> threatOptions = new ArrayList<>();
-        ArrayList<String> selectedTypes = (ArrayList)Arrays.stream(crewMembersInMission).map(m -> m.getMemberType());
+        ArrayList<String> selectedTypes = (ArrayList<String>) Arrays.stream(crewMembersInMission).map(m -> m.getMemberType()).collect(Collectors.toList());;
 
         if(selectedTypes.contains(CrewMemberManager.SOLDIER)){
             threatOptions.add(MissionManager.ASTEROID_STORM);
@@ -80,7 +82,7 @@ public class MissionManager {
         }
 
         Random r = new Random();
-        int chosenThreatIndex = r.nextInt(0, threatOptions.size());
+        int chosenThreatIndex = (int)(Math.random() * threatOptions.size());
 
         int def = 0;
         int atk = 0;
@@ -91,7 +93,20 @@ public class MissionManager {
 
     }
 
+    public static int getThreatImageResource() {
+        int resId = 0;
 
+        switch (threat.getName()){
+            case MissionManager.ASTEROID_STORM: resId = R.drawable.asteroid; break;
+            case MissionManager.KITCHEN_FIRE: resId = R.drawable.kitchen_fire; break;
+            //case MissionManager.FUEL_LEAKAGE: resId = R.drawable.fuel_leakage; break;
+            case MissionManager.SOLAR_FLARES: resId = R.drawable.solar_flame; break;
+            //case MissionManager.ALIEN_ATTACK: resId = R.drawable.alien_attack; break;
+            default: resId = R.drawable.kitchen_fire; break;
+        }
+        Log.i("TAG", String.valueOf(resId));
+        return resId;
+    }
 
     public static void startMission(){
         //if-check in case the startMission() method is called inappropriately
@@ -99,22 +114,21 @@ public class MissionManager {
             return;
         }
 
-        generateThreat();
-
-        //randomize the player's crewMember, and who starts the game out of the two
-        playerIndex = assign0or1();
-        missionDescription = "";
-        missionDescription += "You are: " + crewMembersInMission[playerIndex].getName();
-
-        whoseTurn = assign0or1();
-
-        String text = playerIndex == whoseTurn ? "yours" : "the computer's";
-        missionDescription += "\n" + "The first attack is " + text;
-
-
+        //officially set the location of these crew members to the mission control
         Arrays.stream(crewMembersInMission)
                 .forEach(l -> l.setLocation(ActivityNavigator.missionControl));
 
+        generateThreat();
+
+        isThreatTurn = assign0or1() == 1;
+
+        //randomize which crew member will strike first
+        playerIndex = assign0or1();
+        missionDescription = "";
+        missionDescription += crewMembersInMission[playerIndex].getName() + " is next.";
+
+        String text =  isThreatTurn ? "the threat's" : "yours" ;
+        missionDescription += "\n" + "The first attack is " + text;
         //(re)set mission HP to original HP
         crewMembersInMission[0].setMissionHp(crewMembersInMission[0].getHp());
         crewMembersInMission[1].setMissionHp(crewMembersInMission[1].getHp());
@@ -123,7 +137,7 @@ public class MissionManager {
         isMissionInProgress = true;
 
         //if the computer gets to attack first
-        if(whoseTurn == turn(playerIndex)){
+        if(isThreatTurn){
             computerAttack();
         }
 
@@ -135,14 +149,14 @@ public class MissionManager {
          * */
         isMissionInProgress = false;
 
+        //(re)set crew's mission HP to original HP
+        crewMembersInMission[0].setMissionHp(crewMembersInMission[0].getHp());
+        crewMembersInMission[1].setMissionHp(crewMembersInMission[1].getHp());
+
         //send crewMembers home
         Arrays.stream(crewMembersInMission)
                 .forEach(l -> l.setLocation(ActivityNavigator.home));
 
-
-        //(re)set mission HP to original HP
-        crewMembersInMission[0].setMissionHp(crewMembersInMission[0].getHp());
-        crewMembersInMission[1].setMissionHp(crewMembersInMission[1].getHp());
     }
 
     public static int assign0or1() {
@@ -154,47 +168,22 @@ public class MissionManager {
         return (i == 0) ? 1 : 0;
     }
 
-    public static boolean areBothAlive(){
-        Log.d("DEBUG", String.valueOf(crewMembersInMission[0].getMissionHp()));
-        Log.d("DEBUG", String.valueOf(crewMembersInMission[1].getMissionHp()));
-        return crewMembersInMission[0].getMissionHp() > 0 && crewMembersInMission[1].getMissionHp() > 0;
+    public static int nextPlayerIndex(){
+        playerIndex = playerIndex == 1 ? 0 : playerIndex + 1;
+        return playerIndex;
+
     }
 
-
+    public static boolean areMembersAlive(){
+        Log.d("DEBUG", String.valueOf(crewMembersInMission[0].getMissionHp()));
+        Log.d("DEBUG", String.valueOf(crewMembersInMission[1].getMissionHp()));
+        return Arrays.stream(crewMembersInMission).filter(c -> c.getMissionHp() > 0).count() > 0;
+    }
 
     public static void playerAttack(){
 
-        int attackerIndex= playerIndex;
+        int attackerIndex = nextPlayerIndex();
 
-        attack(attackerIndex, playerName, compName);
-
-        if(crewMembersInMission[turn(playerIndex)].getMissionHp() <= 0){
-            missionDescription += "\n" + crewMembersInMission[turn(playerIndex)].getName() + "'s (" + compName + ") health drops to zero.\nThe mission has ended.\nYou won!";
-
-            int extraXp = 60;
-            crewMembersInMission[playerIndex].addXp(extraXp);
-            missionDescription += "\n" + "You have gained +"+ extraXp + "XP.";
-
-            CrewMemberStatistics.addWin(crewMembersInMission[playerIndex]);
-        }
-
-    }
-
-    public static void computerAttack(){
-
-        int attackerIndex= turn(playerIndex);
-
-        attack(attackerIndex, compName, playerName);
-
-        if(crewMembersInMission[playerIndex].getMissionHp() <= 0){
-            missionDescription += "\n" + crewMembersInMission[turn(attackerIndex)].getName() + "'s (" + playerName + ") health drops to zero.\nYou died.\nThe mission has ended.";
-
-            CrewMemberStatistics.addMission(crewMembersInMission[playerIndex]);
-        }
-
-    }
-
-    private static void attack(int attackerIndex, String attackerName, String defendantName){
         int atk = crewMembersInMission[attackerIndex].getAtk();
         int def = crewMembersInMission[attackerIndex].getDef();
         int xp = crewMembersInMission[attackerIndex].getXp();
@@ -203,20 +192,74 @@ public class MissionManager {
 
         int attackPower = calcAttackPower(atk, missionHp, hp, xp);
 
-        missionDescription += "\n" + attackerName +  "(" + crewMembersInMission[attackerIndex].getName() + ") attacks " + crewMembersInMission[turn(attackerIndex)].getName() + " (" + defendantName + ").";
+        missionDescription += "\n" + crewMembersInMission[attackerIndex].getName() + ") attacks Threat" + " (" + threat.getName() + ").";
 
-        int damageToPlayer = calculateDamageTaken(attackPower, crewMembersInMission[turn(attackerIndex)].getDef());
+        int damageToThreat = calculateDamageTaken(attackPower, threat.getDef());
 
         //reduce player's health
-        crewMembersInMission[turn(attackerIndex)].setMissionHp(damageToPlayer);
+        crewMembersInMission[turn(attackerIndex)].setMissionHp(damageToThreat);
 
-        if(crewMembersInMission[turn(attackerIndex)].getMissionHp() > 0){
-            missionDescription += "\n" + crewMembersInMission[turn(attackerIndex)].getName() + " (" + defendantName + ") manages to escape death, with remaining of " + crewMembersInMission[turn(attackerIndex)].getMissionHp() + "/" + crewMembersInMission[turn(attackerIndex)].getHp() + "HP.";
-            whoseTurn = turn(whoseTurn);
+        //check threat's health; mission continues if threat if still alive
+        if(threat.getMissionHp() > 0){
+            missionDescription += "\nThreat" + " (" + threat.getName() + ") manages to escape death, with remaining of " + threat.getMissionHp() + "/" + threat.getHp() + "HP.";
+            isThreatTurn = true;
+        }
+        //mission ends if threat is defeated
+        else{
+
+            missionDescription += "\nThreat's (" + threat.getName() + ") health drops to zero.\nThe mission has ended.\nYou won!";
+            int extraXp = 60;
+
+            //increase the XP of each participating crew member, even the one(s) that died mid-mission
+            for (CrewMember m: crewMembersInMission) {
+                m.addXp(calculateXpGain(xp, atk, threat.getXp(),threat.getAtk()));
+            }
+            missionDescription += "\n" + "You have gained +"+ extraXp + "XP.";
+
+
+            //handle stat changes
+            CrewMemberStatistics.addWin(crewMembersInMission);
+
+            endMission();
+        }
+
+
+    }
+
+    public static void computerAttack(){
+
+        int atk = threat.getAtk();
+        int def = threat.getDef();
+        int xp = threat.getXp();
+        int hp = threat.getHp();
+        int missionHp = threat.getMissionHp();
+
+        int attackPower = calcAttackPower(atk, missionHp, hp, xp);
+
+
+        //calculate dagame
+        int damageToPlayers = calculateDamageTaken(attackPower, threat.getDef()) / crewMembersInMission.length;
+
+        missionDescription += "\n" + threat.getName() + ") attacks all players. -" + damageToPlayers + "HP";
+
+        //reduce each player's health based on the damage
+        for (CrewMember m: crewMembersInMission) {
+            m.setMissionHp(damageToPlayers);
+        }
+
+        //check threat's health; mission continues if at least one crew member if still alive
+        if(areMembersAlive()){
+            missionDescription += "\nYou escaped defeat.";
+            isThreatTurn = false;
         }
         else{
-            isMissionInProgress = false;
+            missionDescription += "\nThe threat has defeated all crew members.\nThe mission has ended.";
+
+            CrewMemberStatistics.addMission(crewMembersInMission[playerIndex]);
+            CrewMemberStatistics.addLoss();
+            endMission();
         }
+
     }
 
     //Below method inspired by ChatGPT
@@ -277,9 +320,8 @@ public class MissionManager {
     public static int getPlayerIndex(){
         return playerIndex;
     }
-
-    public static int getWhoseTurn(){
-        return whoseTurn;
+    public static boolean getIsThreatTurn(){
+        return isThreatTurn;
     }
 
     public static CrewMember[] getCrewMembersInMission(){
@@ -291,6 +333,10 @@ public class MissionManager {
     }
     public static String getMissionDescription(){
         return missionDescription;
+    }
+
+    public static Threat getThreat(){
+        return threat;
     }
 
 }

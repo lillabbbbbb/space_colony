@@ -1,6 +1,7 @@
 package com.example.spaceCrew.crewMembers;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.example.spaceCrew.utils.ActivityNavigator;
 
@@ -34,6 +35,7 @@ public class CrewMember {
         this.location = ActivityNavigator.home;
         this.isSelected = false;
         setMemberType(memberType);
+        Log.i("TAG", "Member type set to " + this.memberType);
         id = ++crewMemberCounter;
     }
 

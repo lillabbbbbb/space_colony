@@ -1,23 +1,11 @@
 package com.example.spaceCrew.activities;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,10 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.spaceCrew.R;
 import com.example.spaceCrew.adapters.DropdownAdapter;
-import com.example.spaceCrew.crewMembers.CrewMember;
 import com.example.spaceCrew.utils.ActivityNavigator;
-import com.example.spaceCrew.utils.MissionManager;
-import com.example.spaceCrew.utils.ImageTinter;
 import com.example.spaceCrew.utils.CrewMemberManager;
 import com.example.spaceCrew.utils.CrewMemberStatistics;
 import com.github.mikephil.charting.charts.BarChart;
@@ -42,12 +27,9 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
-import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class ChartActivity extends AppCompatActivity {
 
@@ -72,7 +54,7 @@ public class ChartActivity extends AppCompatActivity {
                 .map(l-> new DropdownAdapter.DropdownItem((l.getName().substring(0,3) + ", " + l.getAtk() + " ATK," + l.getDef() + " DEF," + l.getXp() + " XP," + l.getHp() + " HP"), CrewMemberManager.getSkin(l)))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        items.add(new DropdownAdapter.DropdownItem(CrewMemberStatistics.overall, R.drawable.together_heroes));
+        items.add(new DropdownAdapter.DropdownItem(CrewMemberStatistics.overall, R.drawable.together_5));
 
         AutoCompleteTextView dropdown = findViewById(R.id.ageDropdown);
         DropdownAdapter adapter = new DropdownAdapter(this, items);
@@ -88,7 +70,7 @@ public class ChartActivity extends AppCompatActivity {
         //event handling
 
         backButton.setOnClickListener(v -> {
-                ActivityNavigator.goBack(this);
+                ActivityNavigator.goToStats(this);
         });
 
         dropdown.setOnItemClickListener((parent, view, position, id) -> {
@@ -108,7 +90,7 @@ public class ChartActivity extends AppCompatActivity {
 
         BarDataSet numOfSpaceCrews = new BarDataSet(new ArrayList<>(Arrays.asList(new BarEntry(1, CrewMemberManager.getInstance().getCrewMembers().size()))), "SpaceCrews");
         BarDataSet missions = new BarDataSet(new ArrayList<>(Arrays.asList(new BarEntry(2, CrewMemberStatistics.getTotalMissions()))), "Missions");
-        BarDataSet winsData = new BarDataSet(new ArrayList<>(Arrays.asList(new BarEntry(3, CrewMemberStatistics.getTotalWins()))), "Wins");
+        BarDataSet winsData = new BarDataSet(new ArrayList<>(Arrays.asList(new BarEntry(3, CrewMemberStatistics.getWins()))), "Wins");
         BarDataSet trainings = new BarDataSet(new ArrayList<>(Arrays.asList(new BarEntry(4, CrewMemberStatistics.getTotalTimes()))), "Trainings");
         numOfSpaceCrews.setColor(Color.YELLOW);
         missions.setColor(Color.RED);
@@ -151,8 +133,8 @@ public class ChartActivity extends AppCompatActivity {
         //PIE CHART
 
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(CrewMemberStatistics.getTotalWins(), "Wins"));
-        entries.add(new PieEntry(CrewMemberStatistics.getTotalMissions() - CrewMemberStatistics.getTotalWins(), "Losses"));
+        entries.add(new PieEntry(CrewMemberStatistics.getWins(), "Wins"));
+        entries.add(new PieEntry(CrewMemberStatistics.getTotalMissions() - CrewMemberStatistics.getWins(), "Losses"));
 
         // 2️⃣ Create dataset
         PieDataSet dataSet = new PieDataSet(entries, "Wins/Losses Distribution");
