@@ -63,6 +63,7 @@ public class MissionManager {
         ArrayList<String> threatOptions = new ArrayList<>();
         ArrayList<String> selectedTypes = (ArrayList<String>) Arrays.stream(crewMembersInMission).map(m -> m.getMemberType()).collect(Collectors.toList());;
 
+        //select possible threats depending on the specializations of the crew members in the mission
         if(selectedTypes.contains(CrewMemberManager.SOLDIER)){
             threatOptions.add(MissionManager.ASTEROID_STORM);
             threatOptions.add(MissionManager.ALIEN_ATTACK);
@@ -81,15 +82,17 @@ public class MissionManager {
             threatOptions.add(MissionManager.FUEL_LEAKAGE);
         }
 
+        //Choose a threat randomly from the given options
         Random r = new Random();
         int chosenThreatIndex = (int)(Math.random() * threatOptions.size());
 
+        //init threat stats
         double res = 0;
         double skill = 0;
         double energy = 0;
         double xp = 0;
 
-        // ---- Averages ----
+        // ---- Calculate Averages ----
         double avgSkill = Arrays.stream(crewMembersInMission)
                 .mapToInt(CrewMember::getskill)
                 .average()
@@ -107,20 +110,21 @@ public class MissionManager {
                 .average()
                 .orElse(0.0);
 
-        // ---- Team Power ----
+        // ---- Calculate Team Power ----
         double teamPower =
-                (avgSkill * 2.0) +
+                (avgSkill * crewMembersInMission.length) +
                         (avgRes * 1.5) +
                         (avgEnergy * 1.2) +
-                        (avgXP * 2.0);
+                        (avgXP * crewMembersInMission.length)
+                                /crewMembersInMission.length;
 
 
 
         // ---- Scale threat ----
-        double threatPower = teamPower * calculateScalingFactor(avgSkill);
+        double threatPower = (teamPower / crewMembersInMission.length) * calculateScalingFactor(avgSkill);
 
         // ---- Core Stats ----
-        energy = threatPower * 6;        // HP pool
+        energy = threatPower * 3;        // HP pool
         skill = (threatPower * 1.1);  // single attack value
 
         // ---- Balance rules ----
@@ -129,11 +133,6 @@ public class MissionManager {
         double playerTankiness = avgRes * 10;
         if (skill > playerTankiness * 0.5) {
             skill *= 0.85;
-        }
-
-        // Prevent useless enemy
-        if (skill < 10) {
-            skill = 10 + r.nextInt(5);
         }
 
         // Early game safety (XP = 0)
@@ -259,15 +258,12 @@ public class MissionManager {
         int xp = crewMembersInMission[attackerIndex].getXp();
         int energy = crewMembersInMission[attackerIndex].getEnergy();
         int missionEnergy = crewMembersInMission[attackerIndex].getMissionEnergy();
-
-        int attackPower = calcAttackPower(skill, missionEnergy, energy, xp);
-
         missionDescription += "\n" + crewMembersInMission[attackerIndex].getName() + ") attacks Threat" + " (" + threat.getName() + ").";
 
-        int damageToThreat = calculateDamageTaken(attackPower, threat.getResilience());
+        int damageToThreat = calculateDamageTaken(skill, threat.getResilience());
 
         //reduce player's health
-        crewMembersInMission[turn(attackerIndex)].setMissionEnergy(damageToThreat);
+        threat.setMissionEnergy(threat.getMissionEnergy() - damageToThreat);
 
         //check threat's health; mission continues if threat if still alive
         if(threat.getMissionEnergy() > 0){
@@ -304,15 +300,16 @@ public class MissionManager {
         int energy = threat.getEnergy();
         int missionEnergy = threat.getMissionEnergy();
 
-        //calculate dagame
-        int damageToPlayers = calculateDamageTaken(skill, threat.getResilience()) / crewMembersInMission.length;
+        //attack one random player
+        int randomIndex = (int)(Math.random() * crewMembersInMission.length);
 
-        missionDescription += "\n" + threat.getName() + ") attacks all players. -" + damageToPlayers + "Energy";
+        //calculate damage
+        int damageToPlayer = calculateDamageTaken(skill, crewMembersInMission[randomIndex].getResilience());
 
-        //reduce each player's health based on the damage
-        for (CrewMember m: crewMembersInMission) {
-            m.setMissionEnergy(damageToPlayers);
-        }
+        missionDescription += "\n" + threat.getName() + ") attacks all players. -" + damageToPlayer + "Energy";
+
+        //reduce one random player's health based on the damage
+        crewMembersInMission[randomIndex].setMissionEnergy(crewMembersInMission[randomIndex].getMissionEnergy() - damageToPlayer);
 
         //check threat's health; mission continues if at least one crew member if still alive
         if(areMembersAlive()){

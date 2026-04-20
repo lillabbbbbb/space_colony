@@ -264,6 +264,12 @@ public class MissionActivity extends AppCompatActivity {
                         attackButton.setEnabled(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress());
                         lightsaberView.setImageResource(R.drawable.lightsaber_left);
 
+                        //display threat's abilities
+                        skillThreat2.setText(String.valueOf(MissionManager.getThreat().getskill()));
+                        energyThreat2.setText(String.valueOf(MissionManager.getThreat().getMissionEnergy()));
+                        resThreat2.setText(String.valueOf(MissionManager.getThreat().getResilience()));
+                        xpThreat2.setText(String.valueOf(MissionManager.getThreat().getXp()));
+
 
                         //set the threat's image and tint
                         imageViewThreat.setImageResource(MissionManager.getThreatImageResource());
@@ -339,6 +345,25 @@ public class MissionActivity extends AppCompatActivity {
         attackButton.setEnabled(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress());
         missionDescription.setText(MissionManager.getMissionDescription());
         oneWayAnmiation(lightsaberView);
+
+
+        //refresh Players' stats
+        for(int j = 0; j < MissionManager.getCrewMembersInMission().length; j++){
+            if(MissionManager.getCrewMembersInMission()[j] != null){
+                //bind views to variables for Crew Member i
+                skills.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getskill()));
+                energys.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getMissionEnergy()));
+                ress.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getResilience()));
+                xps.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getXp()));
+            }
+        }
+
+        //refresh threat stats
+        skillThreat2.setText(String.valueOf(MissionManager.getThreat().getskill()));
+        energyThreat2.setText(String.valueOf(MissionManager.getThreat().getMissionEnergy()));
+        resThreat2.setText(String.valueOf(MissionManager.getThreat().getResilience()));
+        xpThreat2.setText(String.valueOf(MissionManager.getThreat().getXp()));
+
     }
 
 }
