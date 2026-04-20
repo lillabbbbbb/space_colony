@@ -309,6 +309,7 @@ public class MissionActivity extends AppCompatActivity {
             else{ //text == "End mission"
 
                 MissionManager.endMission();
+                adapter.notifyDataSetChanged();
 
                 //relaunch page
                 ActivityNavigator.goToMissionControl(this);
@@ -343,6 +344,14 @@ public class MissionActivity extends AppCompatActivity {
 
     public void refresh(){
         attackButton.setEnabled(!MissionManager.getIsThreatTurn() && MissionManager.getIsMissionInProgress());
+        if(MissionManager.getIsMissionInProgress()){
+            attackButton.setVisibility(View.VISIBLE);
+            endmissionButton.setText("End Mission");
+        }else{
+            attackButton.setVisibility(View.INVISIBLE);
+            endmissionButton.setText("Start New Mission");
+
+        }
         missionDescription.setText(MissionManager.getMissionDescription());
         oneWayAnmiation(lightsaberView);
 

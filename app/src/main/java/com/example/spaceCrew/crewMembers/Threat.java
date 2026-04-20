@@ -15,7 +15,6 @@ public class Threat {
     private int missionEnergy;
     private int res; //resense ability points
     private int experience;
-    private static int crewMemberCounter = 0;
 
 
     //constructor
@@ -33,17 +32,6 @@ public class Threat {
         this.res = res;
         this.experience = experience;
     }
-
-    public void resend(){
-
-
-    }
-
-    public int attack(CrewMember crewMember){
-
-        return 0;
-    }
-
 
     //getters and setters
     public String getName() {

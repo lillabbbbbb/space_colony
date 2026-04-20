@@ -141,11 +141,11 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
         xp[0] = 0;
         type[0] = CrewMemberManager.PILOT;
 
-        resense = findViewById(R.id.resense2);
+        resense = findViewById(R.id.res2);
         resense.setText(String.valueOf(res[0]));
-        attack = findViewById(R.id.attack2);
+        attack = findViewById(R.id.Skill2);
         attack.setText(String.valueOf(skill[0]));
-        health = findViewById(R.id.health2);
+        health = findViewById(R.id.Energy2);
         health.setText(String.valueOf(energy[0]));
         experience = findViewById(R.id.xp2);
         experience.setText(String.valueOf(xp[0]));

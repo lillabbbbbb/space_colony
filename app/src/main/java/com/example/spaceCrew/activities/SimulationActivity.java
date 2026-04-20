@@ -63,7 +63,7 @@ public class SimulationActivity extends AppCompatActivity {
 
             //record current simulation's results and add to stats
             adapter.rows.stream()
-                            .filter(r -> CrewMemberManager.getInstance().getCrewMembers().get(r.getAdapterPosition()).isSelected())
+                            .filter(r -> CrewMemberManager.getCrewMembers().get(r.getAdapterPosition()).isSelected())
                             .forEach(r -> {
                                 //Syntax from ChatGPT
                                 r.chronometer.stop();
@@ -75,16 +75,26 @@ public class SimulationActivity extends AppCompatActivity {
                                 // Convert to full minutes
                                 int minutes = (elapsedMillis / 1000) / 60;
 
-                                CrewMemberStatistics.addSimulationTime(CrewMemberManager.getInstance().getCrewMembers().get(r.getAdapterPosition()).getId(), minutes);
+                                //If the training is less than a minute, round upward for statistical purposes.
+                                if (minutes < 1){
+                                    minutes = 1;
+                                }
+                                CrewMemberStatistics.addSimulationTime(CrewMemberManager.getCrewMembers().get(r.getAdapterPosition()).getId(), minutes);
+
+
+                                //add XP
+                                CrewMemberManager.getCrewMembers().get(r.getAdapterPosition()).addXp(1);
+                                CrewMemberStatistics.addSimulation(CrewMemberManager.getCrewMembers().get(r.getAdapterPosition()).getId());
                             });
 
             //send crewMember from simulator to home
-            CrewMemberManager.getInstance().getCrewMembers().stream()
+            CrewMemberManager.getCrewMembers().stream()
                     .filter(CrewMember::isSelected) // only keep items satisfying condition
                     .forEach(l -> l.setLocation(ActivityNavigator.home));
+            adapter.notifyDataSetChanged();
 
 
-            long count = CrewMemberManager.getInstance().getCrewMembers().stream()
+            long count = CrewMemberManager.getCrewMembers().stream()
                     .filter(CrewMember::isSelected) // only keep items satisfying condition
                     .count();
             Log.d("DEBUG", "Count: " + count);

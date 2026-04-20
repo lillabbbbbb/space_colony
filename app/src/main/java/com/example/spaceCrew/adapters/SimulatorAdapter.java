@@ -55,15 +55,21 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if(CrewMemberManager.getInstance().getCrewMembers().get(position).getLocation().equals(ActivityNavigator.simulator)){
-            // Bind data to views
-            Log.i("TAG", String.valueOf(position));
-            CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
-            holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
-            holder.res.setText(String.valueOf(crewMember.getResilience()));
-            holder.energy.setText(String.valueOf(crewMember.getEnergy()));
-            holder.xp.setText(String.valueOf(crewMember.getXp()));
 
+        if(CrewMemberManager.getCrewMembers().get(position).getLocation().equals(ActivityNavigator.simulator)){
+            // Bind data to views
+            Log.i("SIMULATOR", "Position of crew member in the holder list: " + String.valueOf(position));
+            CrewMember crewMember = CrewMemberManager.getCrewMembers().get(position);
+            holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
+            Log.i("SIMULATOR", holder.name.getText().toString());
+            holder.res.setText(String.valueOf(crewMember.getResilience()));
+            Log.i("SIMULATOR", holder.res.getText().toString());
+            holder.skill.setText(String.valueOf(crewMember.getskill()));
+            Log.i("SIMULATOR", holder.skill.getText().toString());
+            holder.energy.setText(String.valueOf(crewMember.getEnergy()));
+            Log.i("SIMULATOR", holder.energy.getText().toString());
+            holder.xp.setText(String.valueOf(crewMember.getXp()));
+            Log.i("SIMULATOR", holder.xp.getText().toString());
             int tintR = Color.red(crewMember.getColor());     // returns 0–255
             int tintG = Color.green(crewMember.getColor()); // returns 0–255
             int tintB = Color.blue(crewMember.getColor());  // returns 0–255
@@ -73,11 +79,11 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
 
             if (holder.checkBox.isChecked()){
                 Log.i("TAG", "CheckBox is ticked.");
-                CrewMemberManager.getInstance().getCrewMembers().get(position).setSelected();
+                CrewMemberManager.getCrewMembers().get(position).setSelected();
             }
 
             holder.checkBox.setOnClickListener(view -> {
-                CrewMemberManager.getInstance().getCrewMembers().get(position).setSelected();
+                CrewMemberManager.getCrewMembers().get(position).setSelected();
 
                 //fun animation
                 ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(holder.crewMemberImage, "scaleX", 1f, -1f);
@@ -97,7 +103,7 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
 
     @Override
     public int getItemCount() {
-        return (int) CrewMemberManager.getInstance().getCrewMembers().stream()
+        return (int) CrewMemberManager.getCrewMembers().stream()
                 .filter(l -> l.getLocation().equals(ActivityNavigator.simulator))
                 .count();
     }
@@ -106,7 +112,7 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
      * ViewHolder class for the adapter
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, res, energy, xp;
+        TextView name, res, energy, xp, skill;
         ImageView crewMemberImage;
         CheckBox checkBox;
         public Chronometer chronometer;
@@ -116,6 +122,7 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
             name = itemView.findViewById(R.id.name);
             crewMemberImage = itemView.findViewById(R.id.crewMemberImage);
             chronometer = itemView.findViewById(R.id.chronometer);
+            skill = itemView.findViewById(R.id.skill2);
             res = itemView.findViewById(R.id.res2);
             xp = itemView.findViewById(R.id.xp2);
             energy = itemView.findViewById(R.id.energy2);

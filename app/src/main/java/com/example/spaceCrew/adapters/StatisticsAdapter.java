@@ -49,7 +49,7 @@ public class StatisticsAdapter extends RecyclerView.Adapter<StatisticsAdapter.Vi
 
         // Bind data to views
         Log.i("TAG", String.valueOf(position));
-        CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
+        CrewMember crewMember = CrewMemberManager.getCrewMembers().get(position);
         holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
         holder.wins.setText(String.valueOf(CrewMemberStatistics.getWins(crewMember.getId())));
         holder.missions.setText(String.valueOf(CrewMemberStatistics.getMissions(crewMember.getId())));

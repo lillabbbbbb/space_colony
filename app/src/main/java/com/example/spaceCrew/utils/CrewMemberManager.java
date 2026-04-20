@@ -76,7 +76,7 @@ public class CrewMemberManager {
 
     //getters and setters
 
-    public List<CrewMember> getCrewMembers() {
+    public static List<CrewMember> getCrewMembers() {
         return crewMembers;
     }
 
@@ -93,4 +93,5 @@ public class CrewMemberManager {
             Log.i("TAG", crewMember.toString());
         }
     }
+
 }

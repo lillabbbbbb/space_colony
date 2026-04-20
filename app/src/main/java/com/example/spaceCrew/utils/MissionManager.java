@@ -23,12 +23,11 @@ public class MissionManager {
     private static CrewMember[] crewMembersInMission = new CrewMember[2];
     private static Threat threat;
     private static int playerIndex; //the index of the crewMember in the crewMembersInMission list that the player controls
+    private static ArrayList<Integer> aliveIndices = new ArrayList<>();
     private static boolean isThreatTurn;
     private boolean isCrewVictory;
-    private CrewMember loser;
     private static String missionDescription = "";
     private static boolean isMissionInProgress = false;
-    private static String playerName = "You";
     private static final String ASTEROID_STORM = "Asteroid Storm";
     private static final String ALIEN_ATTACK = "Alien Attack";
     private static final String KITCHEN_FIRE = "Fire in the Kitchen";
@@ -118,8 +117,6 @@ public class MissionManager {
                         (avgXP * crewMembersInMission.length)
                                 /crewMembersInMission.length;
 
-
-
         // ---- Scale threat ----
         double threatPower = (teamPower / crewMembersInMission.length) * calculateScalingFactor(avgSkill);
 
@@ -144,7 +141,6 @@ public class MissionManager {
         //create threat
         //cast all abilities to int
         threat = new Threat(threatOptions.get(chosenThreatIndex), (int)res, (int)skill, (int)energy, (int)xp);
-
     }
 
     public static double calculateScalingFactor(double avgSkill){
@@ -160,7 +156,6 @@ public class MissionManager {
                                 (avgSkill / 10.0) * 0.45 +
                                 (maxSkill / 10.0) * 0.15
                 );
-
     }
 
     public static int getThreatImageResource() {
@@ -203,6 +198,11 @@ public class MissionManager {
         crewMembersInMission[1].setMissionEnergy(crewMembersInMission[1].getEnergy());
         Log.i("TAG", "Mission Energys set.");
 
+        //Set both crew member as alive by default
+        aliveIndices = new ArrayList<>();
+        aliveIndices.add(0);
+        aliveIndices.add(1);
+
         isMissionInProgress = true;
 
         //if the computer gets to attack first
@@ -225,6 +225,13 @@ public class MissionManager {
         //send crewMembers home
         Arrays.stream(crewMembersInMission)
                 .forEach(l -> l.setLocation(ActivityNavigator.home));
+
+        //
+        for (CrewMember m:
+                crewMembersInMission) {
+            CrewMemberStatistics.addMission(m);
+        }
+
 
     }
 
@@ -258,7 +265,7 @@ public class MissionManager {
         int xp = crewMembersInMission[attackerIndex].getXp();
         int energy = crewMembersInMission[attackerIndex].getEnergy();
         int missionEnergy = crewMembersInMission[attackerIndex].getMissionEnergy();
-        missionDescription += "\n" + crewMembersInMission[attackerIndex].getName() + ") attacks Threat" + " (" + threat.getName() + ").";
+        missionDescription += "\n\n" + crewMembersInMission[attackerIndex].getName() + " attacks Threat" + " (" + threat.getName() + ").";
 
         int damageToThreat = calculateDamageTaken(skill, threat.getResilience());
 
@@ -267,25 +274,24 @@ public class MissionManager {
 
         //check threat's health; mission continues if threat if still alive
         if(threat.getMissionEnergy() > 0){
-            missionDescription += "\nThreat" + " (" + threat.getName() + ") manages to escape death, with remaining of " + threat.getMissionEnergy() + "/" + threat.getEnergy() + "Energy.";
+            missionDescription += "\nThreat" + " (" + threat.getName() + ") manages to escape death, with remaining of " + threat.getMissionEnergy() + "/" + threat.getEnergy() + " energy.";
             isThreatTurn = true;
         }
         //mission ends if threat is reseated
         else{
 
             missionDescription += "\nThreat's (" + threat.getName() + ") health drops to zero.\nThe mission has ended.\nYou won!";
-            int extraXp = 60;
+            int extraXp = 2;
 
             //increase the XP of each participating crew member, even the one(s) that died mid-mission
             for (CrewMember m: crewMembersInMission) {
-                m.addXp(calculateXpGain(xp, skill, threat.getXp(),threat.getskill()));
+                m.addXp(extraXp);
             }
-            missionDescription += "\n" + "You have gained +"+ extraXp + "XP.";
+            missionDescription += "\n" + "Each player has gained +"+ extraXp + " XP.";
 
 
             //handle stat changes
             CrewMemberStatistics.addWin(crewMembersInMission);
-
             endMission();
         }
 
@@ -300,27 +306,42 @@ public class MissionManager {
         int energy = threat.getEnergy();
         int missionEnergy = threat.getMissionEnergy();
 
-        //attack one random player
-        int randomIndex = (int)(Math.random() * crewMembersInMission.length);
+        //attack one random player that is still alive
+        int randomIndex = (int)(Math.random() * aliveIndices.size());
 
         //calculate damage
-        int damageToPlayer = calculateDamageTaken(skill, crewMembersInMission[randomIndex].getResilience());
+        int damageToPlayer = calculateDamageTaken(skill, crewMembersInMission[aliveIndices.get(randomIndex)].getResilience());
 
-        missionDescription += "\n" + threat.getName() + ") attacks all players. -" + damageToPlayer + "Energy";
+        missionDescription += "\n\n" + threat.getName() + " attacks " + crewMembersInMission[aliveIndices.get(randomIndex)].getName() + ", -" + damageToPlayer + " Energy";
 
         //reduce one random player's health based on the damage
-        crewMembersInMission[randomIndex].setMissionEnergy(crewMembersInMission[randomIndex].getMissionEnergy() - damageToPlayer);
+        crewMembersInMission[randomIndex].setMissionEnergy(crewMembersInMission[aliveIndices.get(randomIndex)].getMissionEnergy() - damageToPlayer);
 
+        if(crewMembersInMission[aliveIndices.get(randomIndex)].getMissionEnergy() <= 0){
+            missionDescription += "\n" + crewMembersInMission[aliveIndices.get(randomIndex)].getName() + "'s health drops to zero.";
+
+            //remove player from the list of alives
+            aliveIndices.remove(aliveIndices.get(randomIndex));
+
+        }else{
+            missionDescription += "\n" + crewMembersInMission[aliveIndices.get(randomIndex)].getName() + " escaped death.";
+        }
         //check threat's health; mission continues if at least one crew member if still alive
         if(areMembersAlive()){
-            missionDescription += "\nYou escaped defeat.";
             isThreatTurn = false;
         }
         else{
-            missionDescription += "\nThe threat has reseated all crew members.\nThe mission has ended.";
+            missionDescription += "\nThe threat has defeated all crew members.\nThe mission has ended.";
 
-            CrewMemberStatistics.addMission(crewMembersInMission[playerIndex]);
-            CrewMemberStatistics.addLoss();
+            //increase the XP of each participating crew member, even the one(s) that died mid-mission
+            int extraXp = 2;
+            for (CrewMember m: crewMembersInMission) {
+                m.addXp(extraXp);
+            }
+            missionDescription += "\n" + "Each player has gained +"+ extraXp + " XP.";
+
+            //
+            CrewMemberStatistics.addLossOnce();
             endMission();
         }
 
@@ -328,16 +349,16 @@ public class MissionManager {
 
     //Below method entirely credited to ChatGPT
     public static int calculateDamageTaken(int attackPower, int resense) {
-        // 1. Resilienceense factor: higher resense reduces damage
-        double resenseFactor = 1 - (resense / 100.0); // e.g., 20 resense = 0.8 multiplier
+        // 1. Resilience factor: higher resense reduces damage
+        double resFactor = 1 - (resense / 100.0); // e.g., 20 resense = 0.8 multiplier
 
         // Cap the resense factor to avoid negative or zero damage
-        if (resenseFactor < 0.1) {
-            resenseFactor = 0.1; // at least 10% damage gets through
+        if (resFactor < 0.1) {
+            resFactor = 0.1; // at least 10% damage gets through
         }
 
         // 2. Base damage after resense
-        int damage = (int) (attackPower * resenseFactor);
+        int damage = (int) (attackPower * resFactor);
 
         // 3. Optional: random variation ±10%
         double variation = 0.9 + Math.random() * 0.2; // random between 0.9 and 1.1

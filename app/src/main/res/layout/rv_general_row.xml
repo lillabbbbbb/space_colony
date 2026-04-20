@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:text="RES:"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintBottom_toTopOf="@id/experience"/>
 
                 <TextView
                     android:id="@+id/skill"
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:text="skill:"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/res"/>
+                    app:layout_constraintBottom_toTopOf="@id/energy"/>
 
                 <TextView
                     android:id="@+id/energy"
@@ -61,14 +61,14 @@
                     android:layout_width="wrap_content"
                     android:text="Energy:"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/skill"/>
+                    app:layout_constraintBottom_toTopOf="@id/res"/>
                 <TextView
                     android:id="@+id/experience"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="XP:"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/energy"/>
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
                     android:id="@+id/skill2"
@@ -82,9 +82,9 @@
                     android:id="@+id/res2"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="RES:"
+                    android:text="..."
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/skill"/>
+                    app:layout_constraintBottom_toBottomOf="@id/res"/>
 
                 <TextView
                     android:id="@+id/energy2"
@@ -92,14 +92,14 @@
                     android:layout_width="wrap_content"
                     android:text="Energy:"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/res"/>
+                    app:layout_constraintBottom_toBottomOf="@id/energy"/>
                 <TextView
                     android:id="@+id/xp2"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="XP:"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/energy"/>
+                    app:layout_constraintBottom_toBottomOf="@id/experience"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -43,15 +43,21 @@ public class QuartersAdapter extends RecyclerView.Adapter<QuartersAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if(CrewMemberManager.getInstance().getCrewMembers().get(position).getLocation().equals(ActivityNavigator.home)){
+        if(CrewMemberManager.getCrewMembers().get(position).getLocation().equals(ActivityNavigator.home)){
             // Bind data to views
-            Log.i("TAG", String.valueOf(position));
-            CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
+            Log.i("TAG", "Position of crew member in the holder list: " + String.valueOf(position));
+            CrewMember crewMember = CrewMemberManager.getCrewMembers().get(position);
             holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
+            Log.i("TAG", holder.name.getText().toString());
             holder.res.setText(String.valueOf(crewMember.getResilience()));
+            Log.i("TAG", holder.res.getText().toString());
             holder.skill.setText(String.valueOf(crewMember.getskill()));
+            Log.i("TAG", holder.skill.getText().toString());
             holder.energy.setText(String.valueOf(crewMember.getEnergy()));
+            Log.i("TAG", holder.energy.getText().toString());
             holder.xp.setText(String.valueOf(crewMember.getXp()));
+            Log.i("TAG", holder.xp.getText().toString());
+            Log.i("TAG", "CheckBox is ticked.");
 
             int tintR = Color.red(crewMember.getColor());     // returns 0–255
             int tintG = Color.green(crewMember.getColor()); // returns 0–255
@@ -62,11 +68,11 @@ public class QuartersAdapter extends RecyclerView.Adapter<QuartersAdapter.ViewHo
 
             if (holder.checkBox.isChecked()){
                 Log.i("TAG", "CheckBox is ticked.");
-                CrewMemberManager.getInstance().getCrewMembers().get(position).setSelected();
+                CrewMemberManager.getCrewMembers().get(position).setSelected();
             }
 
             holder.checkBox.setOnClickListener(view -> {
-                CrewMemberManager.getInstance().getCrewMembers().get(position).setSelected();
+                CrewMemberManager.getCrewMembers().get(position).setSelected();
 
                 //fun animation
                 ObjectAnimator flipAnimator = ObjectAnimator.ofFloat(holder.crewMemberImage, "scaleX", 1f, -1f);
@@ -80,7 +86,7 @@ public class QuartersAdapter extends RecyclerView.Adapter<QuartersAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return (int) CrewMemberManager.getInstance().getCrewMembers().stream()
+        return (int) CrewMemberManager.getCrewMembers().stream()
                 .filter(l -> l.getLocation().equals(ActivityNavigator.home))
                 .count();
     }

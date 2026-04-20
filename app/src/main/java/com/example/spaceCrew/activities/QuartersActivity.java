@@ -76,7 +76,7 @@ public class QuartersActivity extends AppCompatActivity {
             if(count + current > 3){
                 new AlertDialog.Builder(this)
                         .setTitle("Warning")
-                        .setMessage("A maximum of three spaceCrews can train simultaneously.")
+                        .setMessage("A maximum of three crew members can be in the simulator simultaneously.")
                         .setPositiveButton("OK", (dialog, which) -> {
                             // Handle OK click
                         })
@@ -91,6 +91,7 @@ public class QuartersActivity extends AppCompatActivity {
                 CrewMemberManager.getInstance().getCrewMembers().stream()
                         .filter(CrewMember::isSelected) // only keep items satisfying condition
                         .forEach(l -> l.setLocation(ActivityNavigator.simulator));
+                adapter.notifyDataSetChanged();
 
                 if(count > 0){
                     ActivityNavigator.goToSimulator(this);

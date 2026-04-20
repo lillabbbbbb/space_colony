@@ -14,7 +14,7 @@ import java.util.Map;
 public class CrewMemberStatistics {
     /*
     * responsible for keeping track of general statistics and individual
-    * crewMember statistics regarding their missions and simuations.
+    * crewMember statistics regarding their missions and simulations.
     * */
     public static String overall = "Overall";
 
@@ -22,6 +22,7 @@ public class CrewMemberStatistics {
     private static Map<Integer, Integer> wins = new HashMap<>();
     private static int totalWins = 0;
     private static int totalLosses = 0;
+    private static Map<Integer, Integer> totalSimulations = new HashMap<>();
 
     private static Map<Integer, List<Integer>> simulationTimes = new HashMap<>();
     private static Map<Integer, Float> avgSimulationTime  = new HashMap<>();
@@ -64,15 +65,19 @@ public class CrewMemberStatistics {
                 wins.put(id, 1);
             }
         });
+
         totalWins++;
+    }
+    public static void addSimulation(int id) {
+        //if there is no crewmember with the given id
+        if(totalSimulations.get(id) == null) return;
 
-
+        //Add +1
+        totalSimulations.put(id, 1);
     }
 
-    public static void addSimulationTime(int id, int durationMins){
-        //if there is no crewmember with the given id
-        if(simulationTimes.get(id) == null) return;
 
+    public static void addSimulationTime(int id, int durationMins){
         //increment the crewMember's number of wins
         try {
             List<Integer> times = simulationTimes.get(id);
@@ -84,12 +89,10 @@ public class CrewMemberStatistics {
             simulationTimes.put(id, times);
         }
 
-        //update the average simuation time
+        //update the average simulation time
         int sum = 0;
         for (int i = 0; i < simulationTimes.get(id).size(); i++){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                sum += simulationTimes.get(id).get(i);
-            }
+            sum += simulationTimes.get(id).get(i);
         }
         int total = simulationTimes.get(id).size();
         avgSimulationTime.replace(id, calcAvg(sum, total));
@@ -124,12 +127,12 @@ public class CrewMemberStatistics {
             }
 
             //add data to inner list
-            Log.d("TAG", areaName);
+            //Log.d("TAG", areaName);
             innerList.add(areaName);
-            Log.d("TAG", "There are currently " + counter + " crewMembers here.");
+            //Log.d("TAG", "There are currently " + counter + " crewMembers here.");
             innerList.add("There are currently " + counter + " crew members here.");
             innerList.add("View " + areaName);
-            Log.d("TAG", "View " + areaName);
+            //Log.d("TAG", "View " + areaName);
 
 
             list.add(innerList);
@@ -148,6 +151,7 @@ public class CrewMemberStatistics {
     }
 
     public static int getNumOfSimulations(int id){
+        //Log.i("CREWMEMBER STATISTICS", simulationTimes.get(id).toString()); //throws NullPointerException
         return simulationTimes.get(id) == null ? 0 : simulationTimes.get(id).size();
     }
 
@@ -178,7 +182,11 @@ public class CrewMemberStatistics {
         return totalWins;
     }
 
-    public static void addLoss(){
+    public static void addWinOnce(){
+        totalWins++;
+    }
+
+    public static void addLossOnce(){
         totalLosses++;
     }
 
@@ -190,8 +198,9 @@ public class CrewMemberStatistics {
                 .sum();
     }
     public static int getTotalTimes(){
-        return (int)simulationTimes.values().stream()
-                .count();
+        return totalSimulations.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
     public static float getTotalAvg(){
         return calcAvg(getTotalMins(), getTotalTimes());
