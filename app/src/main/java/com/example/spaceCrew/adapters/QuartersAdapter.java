@@ -48,9 +48,9 @@ public class QuartersAdapter extends RecyclerView.Adapter<QuartersAdapter.ViewHo
             Log.i("TAG", String.valueOf(position));
             CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
             holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
-            holder.def.setText(String.valueOf(crewMember.getDef()));
-            holder.atk.setText(String.valueOf(crewMember.getAtk()));
-            holder.hp.setText(String.valueOf(crewMember.getHp()));
+            holder.res.setText(String.valueOf(crewMember.getResilience()));
+            holder.skill.setText(String.valueOf(crewMember.getskill()));
+            holder.energy.setText(String.valueOf(crewMember.getEnergy()));
             holder.xp.setText(String.valueOf(crewMember.getXp()));
 
             int tintR = Color.red(crewMember.getColor());     // returns 0–255
@@ -89,7 +89,7 @@ public class QuartersAdapter extends RecyclerView.Adapter<QuartersAdapter.ViewHo
      * ViewHolder class for the adapter
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, atk, def, hp, xp;
+        TextView name, skill, res, energy, xp;
         ImageView crewMemberImage;
         CheckBox checkBox;
 
@@ -97,10 +97,10 @@ public class QuartersAdapter extends RecyclerView.Adapter<QuartersAdapter.ViewHo
             super(itemView);
             name = itemView.findViewById(R.id.name);
             crewMemberImage = itemView.findViewById(R.id.crewMemberImage);
-            atk = itemView.findViewById(R.id.atk2);
-            def = itemView.findViewById(R.id.def2);
+            skill = itemView.findViewById(R.id.skill2);
+            res = itemView.findViewById(R.id.res2);
             xp = itemView.findViewById(R.id.xp2);
-            hp = itemView.findViewById(R.id.hp2);
+            energy = itemView.findViewById(R.id.energy2);
             checkBox = itemView.findViewById(R.id.checkBox);
         }
     }

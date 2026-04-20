@@ -68,6 +68,11 @@ public class CrewMemberManager {
         return resId;
     }
 
+    public static void emptyCrewData(){
+        if(crewMembers != null){
+            crewMembers.clear();
+        }
+    }
 
     //getters and setters
 

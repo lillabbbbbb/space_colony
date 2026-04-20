@@ -84,12 +84,83 @@ public class MissionManager {
         Random r = new Random();
         int chosenThreatIndex = (int)(Math.random() * threatOptions.size());
 
-        int def = 0;
-        int atk = 0;
-        int hp = 0;
-        int xp = 0;
+        double res = 0;
+        double skill = 0;
+        double energy = 0;
+        double xp = 0;
 
-        threat = new Threat(threatOptions.get(chosenThreatIndex), def, atk, hp, xp);
+        // ---- Averages ----
+        double avgSkill = Arrays.stream(crewMembersInMission)
+                .mapToInt(CrewMember::getskill)
+                .average()
+                .orElse(0.0);
+        double avgRes = Arrays.stream(crewMembersInMission)
+                .mapToInt(CrewMember::getResilience)
+                .average()
+                .orElse(0.0);
+        double avgEnergy = Arrays.stream(crewMembersInMission)
+                .mapToInt(CrewMember::getEnergy)
+                .average()
+                .orElse(0.0);
+        double avgXP = Arrays.stream(crewMembersInMission)
+                .mapToInt(CrewMember::getXp)
+                .average()
+                .orElse(0.0);
+
+        // ---- Team Power ----
+        double teamPower =
+                (avgSkill * 2.0) +
+                        (avgRes * 1.5) +
+                        (avgEnergy * 1.2) +
+                        (avgXP * 2.0);
+
+
+
+        // ---- Scale threat ----
+        double threatPower = teamPower * calculateScalingFactor(avgSkill);
+
+        // ---- Core Stats ----
+        energy = threatPower * 6;        // HP pool
+        skill = (threatPower * 1.1);  // single attack value
+
+        // ---- Balance rules ----
+
+        // Prevent instant kill players
+        double playerTankiness = avgRes * 10;
+        if (skill > playerTankiness * 0.5) {
+            skill *= 0.85;
+        }
+
+        // Prevent useless enemy
+        if (skill < 10) {
+            skill = 10 + r.nextInt(5);
+        }
+
+        // Early game safety (XP = 0)
+        if (avgXP == 0) {
+            skill *= 0.7;
+            energy *= 0.8;
+        }
+
+        //create threat
+        //cast all abilities to int
+        threat = new Threat(threatOptions.get(chosenThreatIndex), (int)res, (int)skill, (int)energy, (int)xp);
+
+    }
+
+    public static double calculateScalingFactor(double avgSkill){
+        double maxSkill = Arrays.stream(crewMembersInMission)
+                .mapToInt(CrewMember::getskill)
+                .max()
+                .orElse(0);
+
+        //Scale based on players' skills
+        return
+                Math.sqrt(
+                        0.75 +
+                                (avgSkill / 10.0) * 0.45 +
+                                (maxSkill / 10.0) * 0.15
+                );
 
     }
 
@@ -99,9 +170,9 @@ public class MissionManager {
         switch (threat.getName()){
             case MissionManager.ASTEROID_STORM: resId = R.drawable.asteroid; break;
             case MissionManager.KITCHEN_FIRE: resId = R.drawable.kitchen_fire; break;
-            //case MissionManager.FUEL_LEAKAGE: resId = R.drawable.fuel_leakage; break;
+            case MissionManager.FUEL_LEAKAGE: resId = R.drawable.fuel_leakage; break;
             case MissionManager.SOLAR_FLARES: resId = R.drawable.solar_flame; break;
-            //case MissionManager.ALIEN_ATTACK: resId = R.drawable.alien_attack; break;
+            case MissionManager.ALIEN_ATTACK: resId = R.drawable.alien_attack; break;
             default: resId = R.drawable.kitchen_fire; break;
         }
         Log.i("TAG", String.valueOf(resId));
@@ -125,14 +196,13 @@ public class MissionManager {
         //randomize which crew member will strike first
         playerIndex = assign0or1();
         missionDescription = "";
-        missionDescription += crewMembersInMission[playerIndex].getName() + " is next.";
 
         String text =  isThreatTurn ? "the threat's" : "yours" ;
         missionDescription += "\n" + "The first attack is " + text;
-        //(re)set mission HP to original HP
-        crewMembersInMission[0].setMissionHp(crewMembersInMission[0].getHp());
-        crewMembersInMission[1].setMissionHp(crewMembersInMission[1].getHp());
-        Log.i("TAG", "Mission HPs set.");
+        //(re)set mission Energy to original Energy
+        crewMembersInMission[0].setMissionEnergy(crewMembersInMission[0].getEnergy());
+        crewMembersInMission[1].setMissionEnergy(crewMembersInMission[1].getEnergy());
+        Log.i("TAG", "Mission Energys set.");
 
         isMissionInProgress = true;
 
@@ -149,9 +219,9 @@ public class MissionManager {
          * */
         isMissionInProgress = false;
 
-        //(re)set crew's mission HP to original HP
-        crewMembersInMission[0].setMissionHp(crewMembersInMission[0].getHp());
-        crewMembersInMission[1].setMissionHp(crewMembersInMission[1].getHp());
+        //(re)set crew's mission Energy to original Energy
+        crewMembersInMission[0].setMissionEnergy(crewMembersInMission[0].getEnergy());
+        crewMembersInMission[1].setMissionEnergy(crewMembersInMission[1].getEnergy());
 
         //send crewMembers home
         Arrays.stream(crewMembersInMission)
@@ -175,36 +245,36 @@ public class MissionManager {
     }
 
     public static boolean areMembersAlive(){
-        Log.d("DEBUG", String.valueOf(crewMembersInMission[0].getMissionHp()));
-        Log.d("DEBUG", String.valueOf(crewMembersInMission[1].getMissionHp()));
-        return Arrays.stream(crewMembersInMission).filter(c -> c.getMissionHp() > 0).count() > 0;
+        Log.d("DEBUG", String.valueOf(crewMembersInMission[0].getMissionEnergy()));
+        Log.d("DEBUG", String.valueOf(crewMembersInMission[1].getMissionEnergy()));
+        return Arrays.stream(crewMembersInMission).filter(c -> c.getMissionEnergy() > 0).count() > 0;
     }
 
     public static void playerAttack(){
 
         int attackerIndex = nextPlayerIndex();
 
-        int atk = crewMembersInMission[attackerIndex].getAtk();
-        int def = crewMembersInMission[attackerIndex].getDef();
+        int skill = crewMembersInMission[attackerIndex].getskill();
+        int res = crewMembersInMission[attackerIndex].getResilience();
         int xp = crewMembersInMission[attackerIndex].getXp();
-        int hp = crewMembersInMission[attackerIndex].getHp();
-        int missionHp = crewMembersInMission[attackerIndex].getMissionHp();
+        int energy = crewMembersInMission[attackerIndex].getEnergy();
+        int missionEnergy = crewMembersInMission[attackerIndex].getMissionEnergy();
 
-        int attackPower = calcAttackPower(atk, missionHp, hp, xp);
+        int attackPower = calcAttackPower(skill, missionEnergy, energy, xp);
 
         missionDescription += "\n" + crewMembersInMission[attackerIndex].getName() + ") attacks Threat" + " (" + threat.getName() + ").";
 
-        int damageToThreat = calculateDamageTaken(attackPower, threat.getDef());
+        int damageToThreat = calculateDamageTaken(attackPower, threat.getResilience());
 
         //reduce player's health
-        crewMembersInMission[turn(attackerIndex)].setMissionHp(damageToThreat);
+        crewMembersInMission[turn(attackerIndex)].setMissionEnergy(damageToThreat);
 
         //check threat's health; mission continues if threat if still alive
-        if(threat.getMissionHp() > 0){
-            missionDescription += "\nThreat" + " (" + threat.getName() + ") manages to escape death, with remaining of " + threat.getMissionHp() + "/" + threat.getHp() + "HP.";
+        if(threat.getMissionEnergy() > 0){
+            missionDescription += "\nThreat" + " (" + threat.getName() + ") manages to escape death, with remaining of " + threat.getMissionEnergy() + "/" + threat.getEnergy() + "Energy.";
             isThreatTurn = true;
         }
-        //mission ends if threat is defeated
+        //mission ends if threat is reseated
         else{
 
             missionDescription += "\nThreat's (" + threat.getName() + ") health drops to zero.\nThe mission has ended.\nYou won!";
@@ -212,7 +282,7 @@ public class MissionManager {
 
             //increase the XP of each participating crew member, even the one(s) that died mid-mission
             for (CrewMember m: crewMembersInMission) {
-                m.addXp(calculateXpGain(xp, atk, threat.getXp(),threat.getAtk()));
+                m.addXp(calculateXpGain(xp, skill, threat.getXp(),threat.getskill()));
             }
             missionDescription += "\n" + "You have gained +"+ extraXp + "XP.";
 
@@ -228,23 +298,20 @@ public class MissionManager {
 
     public static void computerAttack(){
 
-        int atk = threat.getAtk();
-        int def = threat.getDef();
+        int skill = threat.getskill();
+        int res = threat.getResilience();
         int xp = threat.getXp();
-        int hp = threat.getHp();
-        int missionHp = threat.getMissionHp();
-
-        int attackPower = calcAttackPower(atk, missionHp, hp, xp);
-
+        int energy = threat.getEnergy();
+        int missionEnergy = threat.getMissionEnergy();
 
         //calculate dagame
-        int damageToPlayers = calculateDamageTaken(attackPower, threat.getDef()) / crewMembersInMission.length;
+        int damageToPlayers = calculateDamageTaken(skill, threat.getResilience()) / crewMembersInMission.length;
 
-        missionDescription += "\n" + threat.getName() + ") attacks all players. -" + damageToPlayers + "HP";
+        missionDescription += "\n" + threat.getName() + ") attacks all players. -" + damageToPlayers + "Energy";
 
         //reduce each player's health based on the damage
         for (CrewMember m: crewMembersInMission) {
-            m.setMissionHp(damageToPlayers);
+            m.setMissionEnergy(damageToPlayers);
         }
 
         //check threat's health; mission continues if at least one crew member if still alive
@@ -253,7 +320,7 @@ public class MissionManager {
             isThreatTurn = false;
         }
         else{
-            missionDescription += "\nThe threat has defeated all crew members.\nThe mission has ended.";
+            missionDescription += "\nThe threat has reseated all crew members.\nThe mission has ended.";
 
             CrewMemberStatistics.addMission(crewMembersInMission[playerIndex]);
             CrewMemberStatistics.addLoss();
@@ -262,32 +329,18 @@ public class MissionManager {
 
     }
 
-    //Below method inspired by ChatGPT
-    public static int calcAttackPower(int baseAttack, int health, int maxHealth, int xp) {
-        // 1. Health factor: more health → full attack, less health → weaker attack
-        double healthFactor = (double) health / maxHealth; // between 0 and 1
-
-        // 2. XP factor: higher XP → stronger attack
-        double xpFactor = 1 + (xp / 50.0); // every 50 XP adds +1 multiplier
-
-        // 3. Final attack power
-        int attackPower = (int) (baseAttack * healthFactor * xpFactor);
-
-        return attackPower;
-    }
-
     //Below method entirely credited to ChatGPT
-    public static int calculateDamageTaken(int attackPower, int defense) {
-        // 1. Defense factor: higher defense reduces damage
-        double defenseFactor = 1 - (defense / 100.0); // e.g., 20 defense = 0.8 multiplier
+    public static int calculateDamageTaken(int attackPower, int resense) {
+        // 1. Resilienceense factor: higher resense reduces damage
+        double resenseFactor = 1 - (resense / 100.0); // e.g., 20 resense = 0.8 multiplier
 
-        // Cap the defense factor to avoid negative or zero damage
-        if (defenseFactor < 0.1) {
-            defenseFactor = 0.1; // at least 10% damage gets through
+        // Cap the resense factor to avoid negative or zero damage
+        if (resenseFactor < 0.1) {
+            resenseFactor = 0.1; // at least 10% damage gets through
         }
 
-        // 2. Base damage after defense
-        int damage = (int) (attackPower * defenseFactor);
+        // 2. Base damage after resense
+        int damage = (int) (attackPower * resenseFactor);
 
         // 3. Optional: random variation ±10%
         double variation = 0.9 + Math.random() * 0.2; // random between 0.9 and 1.1

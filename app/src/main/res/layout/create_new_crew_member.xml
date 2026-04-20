@@ -94,7 +94,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/defense"
+            android:id="@+id/resense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -103,13 +103,13 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
             android:textSize="@dimen/text_size"
-            android:text="Defense: " />
+            android:text="Resilienceense: " />
 
         <TextView
             android:id="@+id/attack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/defense"
+            app:layout_constraintTop_toBottomOf="@id/resense"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@id/cardViewNameField2"
@@ -139,15 +139,15 @@
             android:text="XP: " />
 
         <TextView
-            android:id="@+id/defense2"
+            android:id="@+id/resense2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/defense"
+            app:layout_constraintTop_toTopOf="@id/resense"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintEnd_toEndOf="@id/cardViewNameField2"
             android:textSize="@dimen/text_size"
-            android:text="Defense: " />
+            android:text="Resilienceense: " />
 
         <TextView
             android:id="@+id/attack2"

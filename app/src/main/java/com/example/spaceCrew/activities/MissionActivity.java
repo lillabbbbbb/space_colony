@@ -35,14 +35,15 @@ import java.util.stream.Collectors;
 
 public class MissionActivity extends AppCompatActivity {
     Button backButton;
-    TextView atk1, hp1, def1, xp1;
-    TextView atk2, hp2, def2, xp2;
+    TextView skill1, energy1, res1, xp1;
+    TextView skill2, energy2, res2, xp2;
+    TextView skillThreat2, energyThreat2, resThreat2, xpThreat2;
     ImageView imageView1, imageView2, imageViewThreat;
     ImageView lightsaberView;
     Button attackButton, endmissionButton;
-    ArrayList<TextView> atks = new ArrayList<>();
-    ArrayList<TextView> hps = new ArrayList<>();
-    ArrayList<TextView> defs = new ArrayList<>();
+    ArrayList<TextView> skills = new ArrayList<>();
+    ArrayList<TextView> energys = new ArrayList<>();
+    ArrayList<TextView> ress = new ArrayList<>();
     ArrayList<TextView> xps = new ArrayList<>();
     ArrayList<ImageView> images = new ArrayList<>();
     TextView missionDescription;
@@ -68,9 +69,9 @@ public class MissionActivity extends AppCompatActivity {
         lightsaberView = findViewById(R.id.sword);
         missionDescription = findViewById(R.id.my_textbox);
 
-        atk1 = findViewById(R.id.atk2);
-        hp1 = findViewById(R.id.hp2);
-        def1 = findViewById(R.id.def2);
+        skill1 = findViewById(R.id.skill2);
+        energy1 = findViewById(R.id.energy2);
+        res1 = findViewById(R.id.res2);
         xp1 = findViewById(R.id.experience2);
         imageView1 = findViewById(R.id.image1);
         imageView1.setOnClickListener(view -> {
@@ -82,9 +83,9 @@ public class MissionActivity extends AppCompatActivity {
             flipAnimator.start();
         });
 
-        atk2 = findViewById(R.id.atk4);
-        hp2 = findViewById(R.id.hp4);
-        def2 = findViewById(R.id.def4);
+        skill2 = findViewById(R.id.skill4);
+        energy2 = findViewById(R.id.energy4);
+        res2 = findViewById(R.id.res4);
         xp2 = findViewById(R.id.experience4);
         imageView2 = findViewById(R.id.image2);
         imageView2.setOnClickListener(view -> {
@@ -95,6 +96,11 @@ public class MissionActivity extends AppCompatActivity {
             flipAnimator.setRepeatCount(1); // do it only once (flip there and back)
             flipAnimator.start();
         });
+
+        skillThreat2 = findViewById(R.id.skillThreat2);
+        energyThreat2 = findViewById(R.id.energyThreat2);
+        resThreat2 = findViewById(R.id.resThreat2);
+        xpThreat2 = findViewById(R.id.experienceThreat2);
         imageViewThreat = findViewById(R.id.imageThreat);
 
 
@@ -102,7 +108,7 @@ public class MissionActivity extends AppCompatActivity {
 
 
         ArrayList<DropdownAdapter.DropdownItem> items = CrewMemberManager.getInstance().getCrewMembers().stream()
-                .map(l-> new DropdownAdapter.DropdownItem((l.getName().substring(0,3) + ", " + l.getAtk() + " ATK," + l.getDef() + " DEF," + l.getXp() + " XP," + l.getHp() + " HP"), CrewMemberManager.getSkin(l)))
+                .map(l-> new DropdownAdapter.DropdownItem((l.getName().substring(0,3) + ", " + l.getskill() + " skill," + l.getResilience() + " DEF," + l.getXp() + " XP," + l.getEnergy() + " Energy"), CrewMemberManager.getSkin(l)))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         //this component was suggested by ChatGPT
@@ -116,12 +122,12 @@ public class MissionActivity extends AppCompatActivity {
         ArrayList<AutoCompleteTextView> dropdownList = new ArrayList<>();
         dropdownList.add(dropdown);
         dropdownList.add(dropdown2);
-        atks.add(atk1);
-        atks.add(atk2);
-        hps.add(hp1);
-        hps.add(hp2);
-        defs.add(def1);
-        defs.add(def2);
+        skills.add(skill1);
+        skills.add(skill2);
+        energys.add(energy1);
+        energys.add(energy2);
+        ress.add(res1);
+        ress.add(res2);
         xps.add(xp1);
         xps.add(xp2);
         images.add(imageView1);
@@ -134,9 +140,9 @@ public class MissionActivity extends AppCompatActivity {
         for(int j = 0; j < MissionManager.getCrewMembersInMission().length; j++){
             if(MissionManager.getCrewMembersInMission()[j] != null){
                 //bind views to variables for Crew Member i
-                atks.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getAtk()));
-                hps.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getMissionHp()));
-                defs.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getDef()));
+                skills.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getskill()));
+                energys.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getMissionEnergy()));
+                ress.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getResilience()));
                 xps.get(j).setText(String.valueOf(MissionManager.getCrewMembersInMission()[j].getXp()));
                 images.get(j).setImageResource(CrewMemberManager.getSkin(MissionManager.getCrewMembersInMission()[j]));
                 images.get(j).setImageBitmap(ImageTinter.tintWithoutBlack(images.get(j), MissionManager.getCrewMembersInMission()[j]));
@@ -321,9 +327,9 @@ public class MissionActivity extends AppCompatActivity {
 
 
     public void setViewValues(CrewMember crewMember, int index){
-        atks.get(index).setText(String.valueOf(crewMember.getAtk()));
-        hps.get(index).setText(String.valueOf(crewMember.getHp()));
-        defs.get(index).setText(String.valueOf(crewMember.getDef()));
+        skills.get(index).setText(String.valueOf(crewMember.getskill()));
+        energys.get(index).setText(String.valueOf(crewMember.getEnergy()));
+        ress.get(index).setText(String.valueOf(crewMember.getResilience()));
         xps.get(index).setText(String.valueOf(crewMember.getXp()));
         images.get(index).setImageResource(CrewMemberManager.getSkin(crewMember));
         images.get(index).setImageBitmap(ImageTinter.tintWithoutBlack(images.get(index), crewMember));

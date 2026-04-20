@@ -38,8 +38,8 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
     Spinner spinner;
     ImageView crewMemberImage;
     private View colorPreview;
-    TextView defense, attack, health, experience;
-    private int defaultColor = Color.BLACK;
+    TextView resense, attack, health, experience;
+    private int resaultColor = Color.BLACK;
     private int tintR = 255, tintG = 255, tintB = 255;
 
     public void cancel() {
@@ -48,11 +48,11 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
     }
 
     private void openColorPicker() {
-        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, defaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, resaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 // User selected a color
-                defaultColor = color;
+                resaultColor = color;
                 colorPreview.setBackgroundColor(color);
                 tintR = Color.red(color);     // returns 0–255
                 tintG = Color.green(color); // returns 0–255
@@ -112,10 +112,10 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
         // Set adapter to AutoCompleteTextView
         dropdown.setAdapter(adapter);
 
-        //Set item selected by default
+        //Set item selected by resault
         if (adapter.getCount() > 0) {
-            String defaultItem = adapter.getItem(0);
-            dropdown.setText(defaultItem, false);
+            String resaultItem = adapter.getItem(0);
+            dropdown.setText(resaultItem, false);
         }
         // Trigger the dropdown’s listener
         AdapterView.OnItemClickListener listener = dropdown.getOnItemClickListener();
@@ -128,25 +128,25 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
 //            );
 //        }
 
-        final int[] def = new int[1];
-        final int[] atk = new int[1];
-        final int[] hp = new int[1];
+        final int[] res = new int[1];
+        final int[] skill = new int[1];
+        final int[] energy = new int[1];
         final int[] xp = new int[1];
         final String[] type = new String[1];
 
         crewMemberImage.setImageResource(R.drawable.pilot);
-        def[0] = 70;
-        atk[0] = 200;
-        hp[0] = 1800;
-        xp[0] = 1500;
+        res[0] = 4;
+        skill[0] = 5;
+        energy[0] = 20;
+        xp[0] = 0;
         type[0] = CrewMemberManager.PILOT;
 
-        defense = findViewById(R.id.defense2);
-        defense.setText(String.valueOf(def[0]));
+        resense = findViewById(R.id.resense2);
+        resense.setText(String.valueOf(res[0]));
         attack = findViewById(R.id.attack2);
-        attack.setText(String.valueOf(atk[0]));
+        attack.setText(String.valueOf(skill[0]));
         health = findViewById(R.id.health2);
-        health.setText(String.valueOf(hp[0]));
+        health.setText(String.valueOf(energy[0]));
         experience = findViewById(R.id.xp2);
         experience.setText(String.valueOf(xp[0]));
 
@@ -160,53 +160,53 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
             switch (type[0]) {
                 case CrewMemberManager.MEDIC:
                     crewMemberImage.setImageResource(R.drawable.medic);
-                    def[0] = 0;
-                    atk[0] = 46;
-                    hp[0] = 3000;
+                    res[0] = 2;
+                    skill[0] = 7;
+                    energy[0] = 18;
                     xp[0] = 0;
                     break;
                 case CrewMemberManager.ENGINEER:
                     crewMemberImage.setImageResource(R.drawable.engineer);
-                    def[0] = 30;
-                    atk[0] = 90;
-                    hp[0] = 2500;
-                    xp[0] = 700;
+                    res[0] = 3;
+                    skill[0] = 6;
+                    energy[0] = 19;
+                    xp[0] = 0;
                     break;
                 case CrewMemberManager.PILOT:
                     crewMemberImage.setImageResource(R.drawable.pilot);
-                    def[0] = 70;
-                    atk[0] = 200;
-                    hp[0] = 1800;
-                    xp[0] = 1500;
+                    res[0] = 4;
+                    skill[0] = 5;
+                    energy[0] = 20;
+                    xp[0] = 0;
                     break;
                 case CrewMemberManager.SOLDIER:
                     crewMemberImage.setImageResource(R.drawable.soldier);
-                    def[0] = 40;
-                    atk[0] = 100;
-                    hp[0] = 620;
-                    xp[0] = 4000;
+                    res[0] = 0;
+                    skill[0] = 9;
+                    energy[0] = 16;
+                    xp[0] = 0;
                     break;
                 case CrewMemberManager.SCIENTIST:
                     crewMemberImage.setImageResource(R.drawable.scientist);
-                    def[0] = 40;
-                    atk[0] = 100;
-                    hp[0] = 620;
-                    xp[0] = 4000;
+                    res[0] = 1;
+                    skill[0] = 8;
+                    energy[0] = 17;
+                    xp[0] = 0;
                     break;
                 default:
                     crewMemberImage.setImageResource(R.drawable.pilot);
-                    def[0] = 70;
-                    atk[0] = 200;
-                    hp[0] = 1800;
-                    xp[0] = 1500;
+                    res[0] = 4;
+                    skill[0] = 5;
+                    energy[0] = 20;
+                    xp[0] = 0;
                     break;
             }
             //apply the previously selected color for the new skin
             crewMemberImage.setImageBitmap(ImageTinter.tintWithoutBlack(crewMemberImage, tintR, tintG, tintB));
 
-            defense.setText(String.valueOf(def[0]));
-            attack.setText(String.valueOf(atk[0]));
-            health.setText(String.valueOf(hp[0]));
+            resense.setText(String.valueOf(res[0]));
+            attack.setText(String.valueOf(skill[0]));
+            health.setText(String.valueOf(energy[0]));
             experience.setText(String.valueOf(xp[0]));
         });
 
@@ -223,7 +223,7 @@ public class CreateNewCrewMemberActivity extends AppCompatActivity {
                         })
                         .show();
             }else{
-                CrewMemberManager.createCrewMember(new CrewMember(name, tintR, tintG, tintB, def[0], atk[0], hp[0], xp[0], type[0]));
+                CrewMemberManager.createCrewMember(new CrewMember(name, tintR, tintG, tintB, res[0], skill[0], energy[0], xp[0], type[0]));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
                     Log.i("TAG", CrewMemberManager.getInstance().getCrewMembers().getLast().getName() + " created.");
                     Log.i("TAG", CrewMemberManager.getInstance().getCrewMembers().getLast().getMemberType() + " created.");

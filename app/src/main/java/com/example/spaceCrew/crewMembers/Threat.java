@@ -10,16 +10,16 @@ public class Threat {
 
     private String name;
     private int color;
-    private int atk; //attack power
-    private int hp; //health points
-    private int missionHp;
-    private int def; //defense ability points
+    private int skill; //attack power
+    private int energy; //health points
+    private int missionEnergy;
+    private int res; //resense ability points
     private int experience;
     private static int crewMemberCounter = 0;
 
 
     //constructor
-    public Threat(String name, int def, int atk, int hp, int experience) {
+    public Threat(String name, int res, int skill, int energy, int experience) {
         this.name = name;
         Random r = new Random();
         //Randomize the color of the threat
@@ -27,14 +27,14 @@ public class Threat {
         int colorG = r.nextInt(0,255);
         int colorB = r.nextInt(0,255);
         this.color = Color.rgb(colorR, colorG, colorB);
-        this.atk = atk;
-        this.hp = hp;
-        this.missionHp = hp;
-        this.def = def;
+        this.skill = skill;
+        this.energy = energy;
+        this.missionEnergy = energy;
+        this.res = res;
         this.experience = experience;
     }
 
-    public void defend(){
+    public void resend(){
 
 
     }
@@ -59,36 +59,36 @@ public class Threat {
     }
 
 
-    public int getAtk() {
-        return atk;
+    public int getskill() {
+        return skill;
     }
 
-    public void setAtk(int atk) {
-        this.atk = atk;
+    public void setskill(int skill) {
+        this.skill = skill;
     }
 
-    public int getHp() {
-        return hp;
+    public int getEnergy() {
+        return energy;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
-    public int getMissionHp() {
-        return missionHp;
+    public int getMissionEnergy() {
+        return missionEnergy;
     }
 
-    public void setMissionHp(int missionHp) {
-        this.missionHp = missionHp;
+    public void setMissionEnergy(int missionEnergy) {
+        this.missionEnergy = missionEnergy;
     }
 
-    public int getDef() {
-        return def;
+    public int getResilience() {
+        return res;
     }
 
-    public void setDef(int def) {
-        this.def = def;
+    public void setResilience(int res) {
+        this.res = res;
     }
 
     public int getXp() {

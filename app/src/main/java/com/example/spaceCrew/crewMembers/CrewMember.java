@@ -10,10 +10,10 @@ public class CrewMember {
     private int id;
     private int color;
     private String eyeColor;
-    private int atk; //attack power
-    private int hp; //health points
-    private int missionHp; //temporary health points for while the mission lasts
-    private int def; //defense ability points
+    private int skill; //attack power
+    private int energy; //health points
+    private int missionEnergy; //temporary health points for while the mission lasts
+    private int res; //resense ability points
     private int experience; //can be gained via training and by winning missions;  enhances attack power in a mission
     private String location; //where the CrewMember is currently (Quarters, Simulator or Mission Control)
     private String memberType; //pilot, medic, engineer, soldier or scientist
@@ -24,13 +24,13 @@ public class CrewMember {
 
 
     //constructor
-    public CrewMember(String name, int colorR, int colorG, int colorB, int def, int atk, int hp, int experience, String memberType) {
+    public CrewMember(String name, int colorR, int colorG, int colorB, int res, int skill, int energy, int experience, String memberType) {
         this.name = name;
         this.color = Color.rgb(colorR, colorG, colorB);
-        this.atk = atk;
-        this.hp = hp;
-        this.missionHp = hp;
-        this.def = def;
+        this.skill = skill;
+        this.energy = energy;
+        this.missionEnergy = energy;
+        this.res = res;
         this.experience = experience;
         this.location = ActivityNavigator.home;
         this.isSelected = false;
@@ -45,9 +45,9 @@ public class CrewMember {
     public void unSelect(){
         isSelected = false;
     }
-    public void defend(){
+    public void resend(){
         /*
-        * increases own health points in a mission depending on defense ability points
+        * increases own health points in a mission depending on resense ability points
         * */
 
     }
@@ -91,36 +91,36 @@ public class CrewMember {
         this.eyeColor = eyeColor;
     }
 
-    public int getAtk() {
-        return atk;
+    public int getskill() {
+        return skill;
     }
 
-    public void setAtk(int atk) {
-        this.atk = atk;
+    public void setskill(int skill) {
+        this.skill = skill;
     }
 
-    public int getHp() {
-        return hp;
+    public int getEnergy() {
+        return energy;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 
-    public int getMissionHp() {
-        return missionHp;
+    public int getMissionEnergy() {
+        return missionEnergy;
     }
 
-    public void setMissionHp(int missionHp) {
-        this.missionHp = missionHp;
+    public void setMissionEnergy(int missionEnergy) {
+        this.missionEnergy = missionEnergy;
     }
 
-    public int getDef() {
-        return def;
+    public int getResilience() {
+        return res;
     }
 
-    public void setDef(int def) {
-        this.def = def;
+    public void setResilience(int res) {
+        this.res = res;
     }
 
     public int getXp() {

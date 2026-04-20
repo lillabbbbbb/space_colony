@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spaceCrew.R;
 import com.example.spaceCrew.adapters.OverviewAdapter;
+import com.example.spaceCrew.crewMembers.CrewMember;
 import com.example.spaceCrew.utils.ActivityNavigator;
+import com.example.spaceCrew.utils.CrewMemberManager;
 
 import java.util.ArrayList;
 
@@ -38,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
         buttons = new ArrayList<>();
 
         //test data
-//        CrewMemberManager.createCrewMember(new CrewMember("Saku", 35, 100, 189, 100, 89, 1900, 100, 28));
-//        CrewMemberManager.createCrewMember(new CrewMember("2nd", 150, 100, 189, 100, 89, 1900, 100, 90));
+        CrewMemberManager.emptyCrewData();
+        CrewMemberManager.createCrewMember(new CrewMember("Pete", 35, 100, 189, 4, 5, 20, 0, CrewMemberManager.PILOT));
+        CrewMemberManager.createCrewMember(new CrewMember("Sam", 150, 100, 189, 0, 9, 16, 0, CrewMemberManager.SOLDIER));
 //        CrewMemberManager.createCrewMember(new CrewMember("3rd", 35, 220, 189, 100, 89, 1900, 100, 2));
 //        CrewMemberManager.listCrewMembers();
 

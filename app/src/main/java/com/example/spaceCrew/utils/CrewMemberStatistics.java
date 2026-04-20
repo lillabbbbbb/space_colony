@@ -190,9 +190,8 @@ public class CrewMemberStatistics {
                 .sum();
     }
     public static int getTotalTimes(){
-        return simulationTimes.values().stream()
-                .mapToInt(List::size)
-                .sum();
+        return (int)simulationTimes.values().stream()
+                .count();
     }
     public static float getTotalAvg(){
         return calcAvg(getTotalMins(), getTotalTimes());

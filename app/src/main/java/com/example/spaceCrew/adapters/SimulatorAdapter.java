@@ -60,8 +60,8 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
             Log.i("TAG", String.valueOf(position));
             CrewMember crewMember = CrewMemberManager.getInstance().getCrewMembers().get(position);
             holder.name.setText(crewMember.getName() + ", " + String.valueOf(crewMember.getMemberType()));
-            holder.def.setText(String.valueOf(crewMember.getDef()));
-            holder.hp.setText(String.valueOf(crewMember.getHp()));
+            holder.res.setText(String.valueOf(crewMember.getResilience()));
+            holder.energy.setText(String.valueOf(crewMember.getEnergy()));
             holder.xp.setText(String.valueOf(crewMember.getXp()));
 
             int tintR = Color.red(crewMember.getColor());     // returns 0–255
@@ -106,7 +106,7 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
      * ViewHolder class for the adapter
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, def, hp, xp;
+        TextView name, res, energy, xp;
         ImageView crewMemberImage;
         CheckBox checkBox;
         public Chronometer chronometer;
@@ -116,9 +116,9 @@ public class SimulatorAdapter extends RecyclerView.Adapter<SimulatorAdapter.View
             name = itemView.findViewById(R.id.name);
             crewMemberImage = itemView.findViewById(R.id.crewMemberImage);
             chronometer = itemView.findViewById(R.id.chronometer);
-            def = itemView.findViewById(R.id.def2);
+            res = itemView.findViewById(R.id.res2);
             xp = itemView.findViewById(R.id.xp2);
-            hp = itemView.findViewById(R.id.hp2);
+            energy = itemView.findViewById(R.id.energy2);
             checkBox = itemView.findViewById(R.id.checkBox);
         }
     }

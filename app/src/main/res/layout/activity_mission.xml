@@ -65,7 +65,8 @@
             android:id="@+id/constraintLayoutBattleDescription"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayoutLeft"
+
             android:layout_marginTop="@dimen/page_margin"
             android:layout_marginStart="@dimen/page_margin"
             android:layout_marginEnd="@dimen/page_margin">
@@ -79,7 +80,7 @@
                 <TextView
                     android:id="@+id/my_textbox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="The mission description will appear here."
                     android:gravity="top|start"
                     android:scrollbars="vertical"
@@ -137,60 +138,60 @@
                 app:srcCompat="@drawable/infant_grey_outline" />
 
             <TextView
-                android:id="@+id/atk"
+                android:id="@+id/skill"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="ATK:"
+                android:text="skill:"
                 app:layout_constraintTop_toBottomOf="@id/image1"
                 app:layout_constraintLeft_toLeftOf="@id/image1"
-                app:layout_constraintRight_toLeftOf="@id/atk2"
+                app:layout_constraintRight_toLeftOf="@id/skill2"
                 />
             <TextView
-                android:id="@+id/hp"
+                android:id="@+id/energy"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="HP:"
-                app:layout_constraintStart_toStartOf="@id/atk"
-                app:layout_constraintTop_toBottomOf="@id/atk"/>
+                android:text="Energy:"
+                app:layout_constraintStart_toStartOf="@id/skill"
+                app:layout_constraintTop_toBottomOf="@id/skill"/>
             <TextView
-                android:id="@+id/def"
+                android:id="@+id/res"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="DEF:"
-                app:layout_constraintStart_toStartOf="@id/atk"
-                app:layout_constraintTop_toBottomOf="@id/hp"
+                android:text="RES:"
+                app:layout_constraintStart_toStartOf="@id/skill"
+                app:layout_constraintTop_toBottomOf="@id/energy"
                 />
             <TextView
                 android:id="@+id/experience"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="XP:"
-                app:layout_constraintStart_toStartOf="@id/atk"
-                app:layout_constraintTop_toBottomOf="@id/def"/>
+                app:layout_constraintStart_toStartOf="@id/skill"
+                app:layout_constraintTop_toBottomOf="@id/res"/>
             <TextView
-                android:id="@+id/atk2"
+                android:id="@+id/skill2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="ATK:"
-                app:layout_constraintStart_toEndOf="@id/atk"
+                android:text="skill:"
+                app:layout_constraintStart_toEndOf="@id/skill"
                 app:layout_constraintEnd_toEndOf="@id/image1"
-                app:layout_constraintTop_toTopOf="@id/atk"
+                app:layout_constraintTop_toTopOf="@id/skill"
                 />
             <TextView
-                android:id="@+id/hp2"
+                android:id="@+id/energy2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="HP:"
-                app:layout_constraintStart_toEndOf="@id/hp"
-                app:layout_constraintTop_toTopOf="@id/hp"
+                android:text="Energy:"
+                app:layout_constraintStart_toEndOf="@id/energy"
+                app:layout_constraintTop_toTopOf="@id/energy"
                 />
             <TextView
-                android:id="@+id/def2"
+                android:id="@+id/res2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="DEF:"
-                app:layout_constraintStart_toEndOf="@id/def"
-                app:layout_constraintTop_toTopOf="@id/def"/>
+                android:text="RES:"
+                app:layout_constraintStart_toEndOf="@id/res"
+                app:layout_constraintTop_toTopOf="@id/res"/>
             <TextView
                 android:id="@+id/experience2"
                 android:layout_height="wrap_content"
@@ -234,54 +235,54 @@
                     app:srcCompat="@drawable/grandfather_grey_outline"
                     />
                 <TextView
-                    android:id="@+id/atk3"
+                    android:id="@+id/skill3"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="ATK:"
+                    android:text="skill:"
                     app:layout_constraintStart_toStartOf="@id/image2"
                     app:layout_constraintTop_toBottomOf="@id/image2"/>
                 <TextView
-                    android:id="@+id/hp3"
+                    android:id="@+id/energy3"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="HP:"
-                    app:layout_constraintTop_toBottomOf="@id/atk3"
-                    app:layout_constraintStart_toStartOf="@id/atk3"/>
+                    android:text="Energy:"
+                    app:layout_constraintTop_toBottomOf="@id/skill3"
+                    app:layout_constraintStart_toStartOf="@id/skill3"/>
                 <TextView
-                    android:id="@+id/def3"
+                    android:id="@+id/res3"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="DEF:"
-                    app:layout_constraintTop_toBottomOf="@id/hp3"
-                    app:layout_constraintStart_toStartOf="@id/hp3"/>
+                    android:text="RES:"
+                    app:layout_constraintTop_toBottomOf="@id/energy3"
+                    app:layout_constraintStart_toStartOf="@id/energy3"/>
                 <TextView
                     android:id="@+id/experience3"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="XP:"
-                    app:layout_constraintTop_toBottomOf="@id/def3"
-                    app:layout_constraintStart_toStartOf="@id/def3"/>
+                    app:layout_constraintTop_toBottomOf="@id/res3"
+                    app:layout_constraintStart_toStartOf="@id/res3"/>
                 <TextView
-                    android:id="@+id/atk4"
+                    android:id="@+id/skill4"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="ATK:"
-                    app:layout_constraintTop_toTopOf="@id/atk3"
-                    app:layout_constraintStart_toEndOf="@id/atk3"/>
+                    android:text="skill:"
+                    app:layout_constraintTop_toTopOf="@id/skill3"
+                    app:layout_constraintStart_toEndOf="@id/skill3"/>
                 <TextView
-                    android:id="@+id/hp4"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="?"
-                    app:layout_constraintTop_toTopOf="@id/hp3"
-                    app:layout_constraintStart_toEndOf="@id/hp3"/>
-                <TextView
-                    android:id="@+id/def4"
+                    android:id="@+id/energy4"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="?"
-                    app:layout_constraintTop_toTopOf="@id/def3"
-                    app:layout_constraintStart_toEndOf="@id/def3"/>
+                    app:layout_constraintTop_toTopOf="@id/energy3"
+                    app:layout_constraintStart_toEndOf="@id/energy3"/>
+                <TextView
+                    android:id="@+id/res4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="?"
+                    app:layout_constraintTop_toTopOf="@id/res3"
+                    app:layout_constraintStart_toEndOf="@id/res3"/>
                 <TextView
                     android:id="@+id/experience4"
                     android:layout_height="wrap_content"
@@ -310,28 +311,28 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/kitchen_fire" />
             <TextView
-                android:id="@+id/atkThreat"
+                android:id="@+id/skillThreat"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="ATK:"
+                android:text="skill:"
                 app:layout_constraintTop_toBottomOf="@id/imageThreat"
                 app:layout_constraintLeft_toLeftOf="@id/imageThreat"
                 app:layout_constraintRight_toRightOf="@id/imageThreat"
-                app:layout_constraintBottom_toTopOf="@id/hpThreat"/>
+                app:layout_constraintBottom_toTopOf="@id/energyThreat"/>
             <TextView
-                android:id="@+id/hpThreat"
+                android:id="@+id/energyThreat"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="HP:"
-                app:layout_constraintStart_toStartOf="@id/atkThreat"
-                app:layout_constraintTop_toBottomOf="@id/atkThreat"/>
+                android:text="Energy:"
+                app:layout_constraintStart_toStartOf="@id/skillThreat"
+                app:layout_constraintTop_toBottomOf="@id/skillThreat"/>
             <TextView
-                android:id="@+id/defThreat"
+                android:id="@+id/resThreat"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="DEF:"
-                app:layout_constraintStart_toStartOf="@id/atkThreat"
-                app:layout_constraintTop_toBottomOf="@id/hpThreat"
+                android:text="RES:"
+                app:layout_constraintStart_toStartOf="@id/skillThreat"
+                app:layout_constraintTop_toBottomOf="@id/energyThreat"
 
                 />
             <TextView
@@ -339,39 +340,39 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="XP:"
-                app:layout_constraintStart_toStartOf="@id/atkThreat"
-                app:layout_constraintTop_toBottomOf="@id/defThreat"
+                app:layout_constraintStart_toStartOf="@id/skillThreat"
+                app:layout_constraintTop_toBottomOf="@id/resThreat"
 
                 />
             <TextView
-                android:id="@+id/atkThreat2"
+                android:id="@+id/skillThreat2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="ATK:"
-                app:layout_constraintStart_toEndOf="@id/atkThreat"
-                app:layout_constraintTop_toTopOf="@id/atkThreat"/>
+                android:text="?"
+                app:layout_constraintStart_toEndOf="@id/skillThreat"
+                app:layout_constraintTop_toTopOf="@id/skillThreat"/>
             <TextView
-                android:id="@+id/hpThreat2"
+                android:id="@+id/energyThreat2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="HP:"
-                app:layout_constraintStart_toEndOf="@id/hpThreat"
-                app:layout_constraintTop_toBottomOf="@id/atkThreat2"
+                android:text="?"
+                app:layout_constraintStart_toEndOf="@id/energyThreat"
+                app:layout_constraintTop_toBottomOf="@id/skillThreat2"
 
                 />
+
             <TextView
-                android:id="@+id/defThreat2"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="DEF:"
-                app:layout_constraintStart_toEndOf="@id/defThreat"
-                app:layout_constraintTop_toTopOf="@id/defThreat"
-                />
+                android:id="@+id/resThreat2"
+                android:layout_width="23dp"
+                android:layout_height="15dp"
+                android:text="?"
+                app:layout_constraintStart_toEndOf="@id/resThreat"
+                app:layout_constraintTop_toTopOf="@id/resThreat" />
             <TextView
                 android:id="@+id/experienceThreat2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="XP:"
+                android:text="?"
                 app:layout_constraintStart_toEndOf="@id/experienceThreat"
                 app:layout_constraintTop_toTopOf="@id/experienceThreat"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

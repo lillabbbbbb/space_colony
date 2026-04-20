@@ -51,7 +51,7 @@ public class ChartActivity extends AppCompatActivity {
 
         //set up the dropdown selector
         ArrayList<DropdownAdapter.DropdownItem> items = CrewMemberManager.getInstance().getCrewMembers().stream()
-                .map(l-> new DropdownAdapter.DropdownItem((l.getName().substring(0,3) + ", " + l.getAtk() + " ATK," + l.getDef() + " DEF," + l.getXp() + " XP," + l.getHp() + " HP"), CrewMemberManager.getSkin(l)))
+                .map(l-> new DropdownAdapter.DropdownItem((l.getName().substring(0,3) + ", " + l.getskill() + " skill," + l.getResilience() + " DEF," + l.getXp() + " XP," + l.getEnergy() + " Energy"), CrewMemberManager.getSkin(l)))
                 .collect(Collectors.toCollection(ArrayList::new));
 
         items.add(new DropdownAdapter.DropdownItem(CrewMemberStatistics.overall, R.drawable.together_5));
